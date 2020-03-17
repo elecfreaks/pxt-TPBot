@@ -371,7 +371,7 @@ namespace TPBot {
      * @param angle angle of servo, eg: 90
      */
     //% weight=5
-    //% block="Set 180°servo %servo angle to %angle °"
+    //% block="Set 180° servo %servo angle to %angle °"
     //% angle.shadow="protractorPicker"
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
@@ -402,7 +402,7 @@ namespace TPBot {
     * @param speed speed of servo, eg: 100
     */
     //% weight=4
-    //% block="Set 360°servo %servo speed to %speed \\%"
+    //% block="Set 360° servo %servo speed to %speed \\%"
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
