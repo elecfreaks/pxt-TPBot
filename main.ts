@@ -359,7 +359,7 @@ namespace TPBot {
     /**
     * TODO: Turn off the eye mask lamp.
     */
-    //% block="Turn off the headlights."
+    //% block="Turn off the headlights"
     //% weight=9
     export function headlightClose(): void {
         headlightRGB(0, 0, 0)
