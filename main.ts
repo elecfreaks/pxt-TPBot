@@ -16,7 +16,7 @@ namespace TPBot {
         Forward = 0,
         //% block="Backward"
         Backward = 1,
-        //% blcok="Left"
+        //% block="Left"
         Left = 2,
         //% block="Right"
         Right = 3
