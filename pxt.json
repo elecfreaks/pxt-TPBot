@@ -1,6 +1,6 @@
 {
     "name": "pxt-tpbot",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "The intelligent programming car produced by ELECFREAKS Co.ltd",
     "dependencies": {
         "core": "*",
@@ -9,7 +9,7 @@
     "files": [
         "README.md",
         "main.ts",
-		"_locales/zh-cn/pxt-tpbot-strings.json"
+        "_locales/zh-cn/pxt-tpbot-strings.json"
     ],
     "testFiles": [
         "test.ts"
