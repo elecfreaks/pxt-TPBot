@@ -405,6 +405,7 @@ namespace TPBot {
     //% block="Set 360°servo %servo speed to %speed \\%"
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
+    //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
         let buf = pins.createBuffer(4);
         speed = Math.map(speed, -100, 100, 0, 180)
