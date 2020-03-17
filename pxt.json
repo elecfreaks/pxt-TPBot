@@ -1,5 +1,5 @@
 {
-    "name": "pxt-tpbot",
+    "name": "pxt-TPBot",
     "version": "0.0.4",
     "description": "The intelligent programming car produced by ELECFREAKS Co.ltd",
     "dependencies": {
