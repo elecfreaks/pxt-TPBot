@@ -2,7 +2,7 @@
 
 # TPBot Package
 
-![](/image.png/)
+![](/images.png/)
 
 This library is designed to drive TPBot, You can get TPBot here.
 
