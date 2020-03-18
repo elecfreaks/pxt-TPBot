@@ -1,21 +1,30 @@
-# pxt-tpbot
+![](https://img.shields.io/badge/Plantfrom-Micro%3Abit-red) ![](https://img.shields.io/travis/com/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/v/release/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/last-commit/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/languages/top/lionyhw/pxt-tpbot)  ![](https://img.shields.io/github/issues/lionyhw/pxt-tpbot) 
 
+# TPBot Package
 
+![](/image.png/)
 
-## TODO
+This library is designed to drive TPBot, You can get TPBot here.
 
-- [ ] Add a reference for your blocks here
-- [ ] Add "icon.png" image (300x200) in the root folder
-- [ ] Add "- beta" to the GitHub project description if you are still iterating it.
-- [ ] Turn on your automated build on https://travis-ci.org
-- [ ] Use "pxt bump" to create a tagged release on GitHub
-- [ ] On GitHub, create a new file named LICENSE. Select the MIT License template.
-- [ ] Get your package reviewed and approved https://makecode.microbit.org/extensions/approval
+[https://www.elecfreaks.com/store](https://www.elecfreaks.com/store)
 
-Read more at https://makecode.microbit.org/extensions
+## Code Example
+```JavaScript
 
+let right = 0
+let left = 0
+TPBot.headlightColor(0xff0000)
+basic.forever(function () {
+    left = Math.randomRange(-100, 100)
+    right = Math.randomRange(-100, 100)
+    TPBot.setWheels(left, right)
+    basic.pause(1000)
+})
+
+```
 ## Supported targets
+for PXT/microbit
 
-* for PXT/microbit
-(The metadata above is needed for package search.)
+## License
+MIT
 
