@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Plantfrom-Micro%3Abit-red) ![](https://img.shields.io/travis/com/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/v/release/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/last-commit/lionyhw/pxt-tpbot) ![](https://img.shields.io/github/languages/top/lionyhw/pxt-tpbot)  ![](https://img.shields.io/github/issues/lionyhw/pxt-tpbot) 
+![](https://img.shields.io/badge/Plantfrom-Micro%3Abit-red) ![](https://img.shields.io/travis/com/elecfreaks/pxt-tpbot) ![](https://img.shields.io/github/v/release/elecfreaks/pxt-tpbot) ![](https://img.shields.io/github/last-commit/elecfreaks/pxt-tpbot) ![](https://img.shields.io/github/languages/top/elecfreaks/pxt-tpbot)  ![](https://img.shields.io/github/issues/elecfreaks/pxt-tpbot) 
 
 # TPBot Package
 
