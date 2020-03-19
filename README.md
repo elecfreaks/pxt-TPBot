@@ -4,9 +4,7 @@
 
 ![](/images.png/)
 
-This library is designed to drive TPBot, You can get TPBot here.
-
-[https://www.elecfreaks.com/store](https://www.elecfreaks.com/store)
+This extension is designed to programme and drive the TPBot, You can [get TPBot from the Elecfreaks store](https://www.elecfreaks.com/store/tpbot.html)
 
 ## Code Example
 ```JavaScript
