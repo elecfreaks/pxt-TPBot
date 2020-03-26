@@ -1,7 +1,7 @@
 {
     "name": "pxt-TPBot",
-    "version": "0.0.10",
-    "description": "The intelligent programming car produced by ELECFREAKS Co.ltd",
+    "version": "0.1.2",
+    "description": "The intelligent programming car TPBot(Tianpeng) produced by ELECFREAKS Co.ltd",
     "dependencies": {
         "core": "*",
         "radio": "*"
