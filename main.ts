@@ -149,14 +149,13 @@ namespace TPBot {
             setWheels(-speed, -speed)
             basic.pause(time * 1000)
             stopCar()
-        } 
+        }
         if (direc == 2) {
             setWheels(-speed, speed)
             basic.pause(time * 1000)
             stopCar()
-        } 
-        if (direc == 3) 
-        {
+        }
+        if (direc == 3) {
             setWheels(speed, -speed)
             basic.pause(time * 1000)
             stopCar()
