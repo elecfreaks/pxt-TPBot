@@ -72,18 +72,18 @@ namespace TPBot {
      * Line Sensor events  
      */
     export enum MbEvents {
-        //% block="Black" 
+        //% block="Black" enumval=0
         Black = DAL.MICROBIT_PIN_EVT_FALL,
-        //% block="White"
+        //% block="White"enumval=1
         White = DAL.MICROBIT_PIN_EVT_RISE
     }
     /**
      * Pins used to generate events
      */
     export enum MbPins {
-        //% block="Left" 
+        //% block="Left" enumval=0
         Left = DAL.MICROBIT_ID_IO_P13,
-        //% block="Right" 
+        //% block="Right" enumval=1
         Right = DAL.MICROBIT_ID_IO_P14
     }
 
