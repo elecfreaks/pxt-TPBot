@@ -69,21 +69,39 @@ namespace TPBot {
         S4 = 3
     }
     /**
+    * Line Sensor states  
+    */
+    export enum LineState{
+        //% block="Black" enumval=0
+        Black,
+        //% block="White"enumval=1
+        White
+    }
+    /**
+    * Line Sensor Side
+    */
+    export enum LineSide{
+        //% block="Left" enumval=0
+        Left,
+        //% block="Right" enumval=1
+        Right
+    }
+    /**
      * Line Sensor events  
      */
     export enum MbEvents {
-        //% block="Black" enumval=0
+        //% block="Black"
         Black = DAL.MICROBIT_PIN_EVT_FALL,
-        //% block="White"enumval=1
+        //% block="White"
         White = DAL.MICROBIT_PIN_EVT_RISE
     }
     /**
      * Pins used to generate events
      */
     export enum MbPins {
-        //% block="Left" enumval=0
+        //% block="Left"
         Left = DAL.MICROBIT_ID_IO_P13,
-        //% block="Right" enumval=1
+        //% block="Right"
         Right = DAL.MICROBIT_ID_IO_P14
     }
 
@@ -198,14 +216,14 @@ namespace TPBot {
     }
     /**
      * TODO: track one side
-     * @param side Line sensor edge , eg: MbPins.Left
-     * @param state Line sensor status, eg: MbEvents.FindLine
+     * @param side Line sensor edge , eg: LineState.Left
+     * @param state Line sensor status, eg: LineSide.FindLine
      */
     //% weight=70
     //% block="%side line sensor detected %state"
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
-    export function trackSide(side: MbPins, state: MbEvents): boolean {
+    export function trackSide(side: LineSide, state: LineState): boolean {
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
         let left_tracking = pins.digitalReadPin(DigitalPin.P13);

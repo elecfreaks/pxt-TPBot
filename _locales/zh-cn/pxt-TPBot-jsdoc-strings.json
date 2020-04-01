@@ -1,6 +1,8 @@
 {
   "TPBot": "The intelligent programming car produced by ELECFREAKS Co.ltd",
   "TPBot.DriveDirection": "List of driving directions",
+  "TPBot.LineSide": "Line Sensor Side",
+  "TPBot.LineState": "Line Sensor states",
   "TPBot.MbEvents": "Line Sensor events",
   "TPBot.MbPins": "Pins used to generate events",
   "TPBot.ServoList": "Select the servo on the S1 or S2",
@@ -37,6 +39,6 @@
   "TPBot.trackLine": "TODO: Judging the Current Status of Tracking Module.",
   "TPBot.trackLine|param|state": "Four states of tracking module, eg: TrackingState.L_R_line",
   "TPBot.trackSide": "TODO: track one side",
-  "TPBot.trackSide|param|side": "Line sensor edge , eg: MbPins.Left",
-  "TPBot.trackSide|param|state": "Line sensor status, eg: MbEvents.FindLine"
+  "TPBot.trackSide|param|side": "Line sensor edge , eg: LineState.Left",
+  "TPBot.trackSide|param|state": "Line sensor status, eg: LineSide.FindLine"
 }
