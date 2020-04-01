@@ -283,6 +283,7 @@ namespace TPBot {
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
         initEvents();
         control.onEvent(<number>side, <number>state, handler);
+        basic.pause(5);
     }
     /**
     * TODO: Cars can extend the ultrasonic function to prevent collisions and other functions.
