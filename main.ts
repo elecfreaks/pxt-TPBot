@@ -7,6 +7,7 @@ namespace TPBot {
     const TPBotAdd = 0X10
     let Buff = pins.createBuffer(4);
     let _initEvents = true
+    
     /**
     * List of driving directions
     */
