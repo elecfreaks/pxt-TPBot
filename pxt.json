@@ -10,7 +10,8 @@
         "README.md",
         "main.ts",
         "_locales/zh/pxt-TPBot-strings.json",
-        "_locales/pxt-TPBot-strings.json"
+        "_locales/de/pxt-TPBot-strings.json",
+        "_locales/de/pxt-TPBot-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"
