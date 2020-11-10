@@ -32,7 +32,7 @@
   "TPBot.setTravelTime|block": "Fahre %direc mit %speed\\% der Geschwindigkeit für %time Sekunden",
   "TPBot.setWheels|block": "Setze Geschwindigkeit der Räder Links auf %lspeed\\%| und Rechts auf %rspeed\\%",
   "TPBot.sonarJudge|block": "Sonardistanz %judge %dis Zentimeter beträgt",
-  "TPBot.sonarReturn|block": "Setze die Maßeinheit des Sonarsensors auf %unit",
+  "TPBot.sonarReturn|block": "Wert des Sonarsensors in %unit",
   "TPBot.stopCar|block": "Stoppe den TPBot",
   "TPBot.trackEvent|block": "Wenn Liniensensor %side| %state erkennt",
   "TPBot.trackLine|block": "Liniensensoren %state erkennen",
