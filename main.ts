@@ -390,7 +390,7 @@ namespace TPBot {
     //% block="Set 180° servo %servo angle to %angle °"
     //% angle.shadow="protractorPicker"
     //% servo.fieldEditor="gridpicker"
-    //% servo.fieldOptions.columns=1
+    //% servo.fieldOptions.columns=4
     export function setServo180(servo: ServoList, angle: number = 180): void {
         let buf = pins.createBuffer(4);
         Buff[0] = servo
@@ -407,7 +407,7 @@ namespace TPBot {
     //% weight=4
     //% block="Set 360° servo %servo speed to %speed \\%"
     //% servo.fieldEditor="gridpicker"
-    //% servo.fieldOptions.columns=1
+    //% servo.fieldOptions.columns=4
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
         let buf = pins.createBuffer(4);
