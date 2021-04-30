@@ -59,13 +59,13 @@ namespace TPBot {
     */
     export enum ServoList {
         //% block="S1"
-        S1 = 0x10,
+        S1 = 0,
         //% block="S2"
-        S2 = 0x11,
+        S2 = 1,
         //% block="S3"
-        S3 = 0x12,
+        S3 = 2,
         //% block="S4"
-        S4 = 0x13
+        S4 = 3
     }
     /**
     * Line Sensor states  
@@ -114,11 +114,20 @@ namespace TPBot {
     //% lspeed.min=-100 lspeed.max=100
     //% rspeed.min=-100 rspeed.max=100
     export function setWheels(lspeed: number = 50, rspeed: number = 50): void {
-        lspeed = lspeed > 100 ? lspeed = 100 : lspeed
-        lspeed = lspeed < 100 ? lspeed = -100 : lspeed
-        rspeed = rspeed > 100 ? rspeed = 100 : rspeed
-        rspeed = rspeed < 100 ? rspeed = -100 : rspeed        
+        if (lspeed > 100) {
+            lspeed = 100;
+        } else if (lspeed < -100) {
+            lspeed = -100;
+        }
+        if (rspeed > 100) {
+            rspeed = 100;
+        } else if (rspeed < -100) {
+            rspeed = -100;
+        }
         Buff[0] = 0x01;    //控制位 0x01电机
+        Buff[1] = lspeed;
+        Buff[2] = rspeed;
+        Buff[3] = 0x00;        //正反转加权值
         if (lspeed < 0 && rspeed < 0) {
             Buff[1] = lspeed * -1;
             Buff[2] = rspeed * -1;
@@ -148,29 +157,25 @@ namespace TPBot {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
-        switch(direc){
-            case DriveDirection.Forward:
-                setWheels(speed, speed)
-                basic.pause(time * 1000)
-                stopCar()
-                break
-            case DriveDirection.Backward:
-                setWheels(-speed, -speed)
-                basic.pause(time * 1000)
-                stopCar()
-                break
-            case DriveDirection.Left:
-                setWheels(-speed, speed)
-                basic.pause(time * 1000)
-                stopCar()
-                break
-            case DriveDirection.Right:
-                setWheels(speed, -speed)
-                basic.pause(time * 1000)
-                stopCar()
-                break
-            default:
-                stopCar()
+        if (direc == 0) {
+            setWheels(speed, speed)
+            basic.pause(time * 1000)
+            stopCar()
+        }
+        if (direc == 1) {
+            setWheels(-speed, -speed)
+            basic.pause(time * 1000)
+            stopCar()
+        }
+        if (direc == 2) {
+            setWheels(-speed, speed)
+            basic.pause(time * 1000)
+            stopCar()
+        }
+        if (direc == 3) {
+            setWheels(speed, -speed)
+            basic.pause(time * 1000)
+            stopCar()
         }
     }
     /**
@@ -183,21 +188,17 @@ namespace TPBot {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
-        switch(direc){
-            case DriveDirection.Forward:
-                setWheels(speed, speed)
-                break
-            case DriveDirection.Backward:
-                setWheels(-speed, -speed)
-                break
-            case DriveDirection.Left:
-                setWheels(-speed, speed)
-                break
-            case DriveDirection.Right:
-                setWheels(speed, -speed)
-                break
-            default:
-                stopCar()
+        if (direc == 0) {
+            setWheels(speed, speed)
+        }
+        if (direc == 1) {
+            setWheels(-speed, -speed)
+        }
+        if (direc == 2) {
+            setWheels(-speed, speed)
+        }
+        if (direc == 3) {
+            setWheels(speed, -speed)
         }
     }
     /**
@@ -213,7 +214,7 @@ namespace TPBot {
         pins.i2cWriteBuffer(TPBotAdd, Buff);  //传递数据
     }
     /**
-     * Track one side
+     * track one side
      * @param side Line sensor edge , eg: LineState.Left
      * @param state Line sensor status, eg: LineSide.FindLine
      */
@@ -243,7 +244,7 @@ namespace TPBot {
         }
     }
     /**
-    * TODO: Judging the Current Status of Tracking Module.
+    * Judging the Current Status of Tracking Module.
     * @param state Four states of tracking module, eg: TrackingState.L_R_line
     */
     //% weight=60
@@ -313,7 +314,7 @@ namespace TPBot {
         }
     }
     /**
-    * Sonar Judge.
+    * sonar Judge.
     * @param dis sonar distance , eg: 5
     * @param judge state, eg: Sonarjudge.<
     */
@@ -373,7 +374,7 @@ namespace TPBot {
         pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
     /**
-    * TODO: Turn off the eye mask lamp.
+    * Turn off the eye mask lamp.
     */
     //% block="Turn off the headlights"
     //% weight=9
@@ -390,10 +391,23 @@ namespace TPBot {
     //% block="Set 180° servo %servo angle to %angle °"
     //% angle.shadow="protractorPicker"
     //% servo.fieldEditor="gridpicker"
-    //% servo.fieldOptions.columns=4
+    //% servo.fieldOptions.columns=1
     export function setServo180(servo: ServoList, angle: number = 180): void {
         let buf = pins.createBuffer(4);
-        Buff[0] = servo
+        switch (servo) {
+            case 0:
+                Buff[0] = 0x10;
+                break;
+            case 1:
+                Buff[0] = 0x11;
+                break;
+            case 2:
+                Buff[0] = 0x12;
+                break;
+            case 3:
+                Buff[0] = 0x13;
+                break;
+        }
         Buff[1] = angle;
         Buff[2] = 0;
         Buff[3] = 0;
@@ -407,12 +421,25 @@ namespace TPBot {
     //% weight=4
     //% block="Set 360° servo %servo speed to %speed \\%"
     //% servo.fieldEditor="gridpicker"
-    //% servo.fieldOptions.columns=4
+    //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
         let buf = pins.createBuffer(4);
         speed = Math.map(speed, -100, 100, 0, 180)
-        Buff[0] = servo
+        switch (servo) {
+            case 0:
+                Buff[0] = 0x10;
+                break;
+            case 1:
+                Buff[0] = 0x11;
+                break;
+            case 2:
+                Buff[0] = 0x12;
+                break;
+            case 3:
+                Buff[0] = 0x13;
+                break;
+        }
         Buff[1] = speed;
         Buff[2] = 0;
         Buff[3] = 0;
