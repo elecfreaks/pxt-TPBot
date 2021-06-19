@@ -103,6 +103,18 @@ namespace TPBot {
         //% block="Right"
         Right = DAL.MICROBIT_ID_IO_P14
     }
+    export enum MelodyCMDList {
+        //% block="Play"
+        Play = 0x03,
+        //% block="Stop"
+        Stop = 0x16
+
+    }
+    export enum MelodyList {
+        //% block="Happy"
+        Happy = 0x01
+
+    }
     /////////////////////////color/////////////////////////
     export enum TPBotColorList {
         //% block="Red"
@@ -634,5 +646,20 @@ namespace TPBot {
                 }
                 break
         }
+    }
+
+    //% block="TPbot %CMD Melody %Melody"
+    //% subcategory=EDU
+    //% color.fieldEditor="gridpicker" color.fieldOptions.columns=3
+    export function TPBotMelody(CMD: MelodyCMDList, Melody: MelodyList): void {
+        Buff[0] = 0x30;
+        Buff[1] = CMD;
+        Buff[2] = 0;
+        Buff[3] = Melody;
+        if(CMD = MelodyCMDList.Stop){
+        Buff[2] = 0;
+        Buff[3] = 0;
+        }
+        pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
 }
