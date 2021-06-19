@@ -650,7 +650,8 @@ namespace TPBot {
 
     //% block="TPbot %CMD Melody %Melody"
     //% subcategory=EDU
-    //% color.fieldEditor="gridpicker" color.fieldOptions.columns=3
+    //% CMD.fieldEditor="gridpicker" CMD.fieldOptions.columns=2
+    //% Melody.fieldEditor="gridpicker" Melody.fieldOptions.columns=2
     export function TPBotMelody(CMD: MelodyCMDList, Melody: MelodyList): void {
         Buff[0] = 0x30;
         Buff[1] = CMD;
