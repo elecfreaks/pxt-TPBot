@@ -103,6 +103,97 @@ namespace TPBot {
         //% block="Right"
         Right = DAL.MICROBIT_ID_IO_P14
     }
+    /////////////////////////color/////////////////////////
+    export enum TPBotColorList {
+        //% block="Red"
+        red,
+        //% block="Green"
+        green,
+        //% block="Blue"
+        blue,
+        //% block="Cyan"
+        cyan,
+        //% block="Magenta"
+        magenta,
+        //% block="Yellow"
+        yellow,
+        //% block="White"
+        white
+    }
+    const TPbotColor_ADDR = 0x39
+    const TPbotColor_ENABLE = 0x80
+    const TPbotColor_ATIME = 0x81
+    const TPbotColor_CONTROL = 0x8F
+    const TPbotColor_STATUS = 0x93
+    const TPbotColor_CDATAL = 0x94
+    const TPbotColor_CDATAH = 0x95
+    const TPbotColor_RDATAL = 0x96
+    const TPbotColor_RDATAH = 0x97
+    const TPbotColor_GDATAL = 0x98
+    const TPbotColor_GDATAH = 0x99
+    const TPbotColor_BDATAL = 0x9A
+    const TPbotColor_BDATAH = 0x9B
+    const TPbotColor_GCONF4 = 0xAB
+    const TPbotColor_AICLEAR = 0xE7
+    let TPbotColor_init = false
+    
+
+    function TPColor_write(addr: number, reg: number, value: number) {
+        let buf = pins.createBuffer(2)
+        buf[0] = reg
+        buf[1] = value
+        pins.i2cWriteBuffer(addr, buf)
+    }
+    function TPColor_read(addr: number, reg: number) {
+        pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
+        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
+        return val;
+    }
+    function rgbtohsl(color_r: number, color_g: number, color_b: number): number {
+        let Hue = 0
+        // normalizes red-green-blue values  把RGB值转成【0，1】中数值。
+        let R = color_r * 100 / 255;   //由于H25不支持浮点运算，放大100倍在计算，下面的运算也放大100倍
+        let G = color_g * 100 / 255;
+        let B = color_b * 100 / 255;
+
+        let maxVal = Math.max(R, Math.max(G, B))//找出R,G和B中的最大值
+        let minVal = Math.min(R, Math.min(G, B)) //找出R,G和B中的最小值
+
+        let Delta = maxVal - minVal;  //△ = Max - Min
+
+        /***********   计算Hue  **********/
+        if (Delta < 0) {
+            Hue = 0;
+        }
+        else if (maxVal == R && G >= B) //最大值为红色
+        {
+            Hue = (60 * ((G - B) * 100 / Delta)) / 100;  //放大100倍
+        }
+        else if (maxVal == R && G < B) {
+            Hue = (60 * ((G - B) * 100 / Delta) + 360 * 100) / 100;
+        }
+        else if (maxVal == G) //最大值为绿色
+        {
+            Hue = (60 * ((B - R) * 100 / Delta) + 120 * 100) / 100;
+        }
+        else if (maxVal == B) {
+            Hue = (60 * ((R - G) * 100 / Delta) + 240 * 100) / 100;
+        }
+        return Hue
+    }
+    function InitTPBotColor(): void {
+        TPColor_write(TPbotColor_ADDR, TPbotColor_ATIME, 252) // default inte time 4x2.78ms
+        TPColor_write(TPbotColor_ADDR, TPbotColor_CONTROL, 0x03) // todo: make gain adjustable
+        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, 0x00) // put everything off
+        TPColor_write(TPbotColor_ADDR, TPbotColor_GCONF4, 0x00) // disable gesture mode
+        TPColor_write(TPbotColor_ADDR, TPbotColor_AICLEAR, 0x00) // clear all interrupt
+        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, 0x01) // clear all interrupt
+        TPbotColor_init = true
+    }
+    function TPbotColorMode(): void {
+        let tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_ENABLE) | 0x2;
+        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, tmp);
+    }
 
     /**
      * Set the speed of left and right wheels. 
@@ -318,7 +409,7 @@ namespace TPBot {
     * @param dis sonar distance , eg: 5
     * @param judge state, eg: Sonarjudge.<
     */
-    //% weight=30
+    //% weight=35
     //% block="Sonar distance %judge %dis cm"
     //% dis.min=1 dis.max=400
     //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
@@ -344,7 +435,7 @@ namespace TPBot {
     * Select a color to Set eye mask lamp.
     */
     //% block="Set headlight color to $color"
-    //% weight=20
+    //% weight=30
     //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
         let r, g, b: number = 0
@@ -360,7 +451,7 @@ namespace TPBot {
     * @param g G color value of RGB color, eg: 202
     * @param b B color value of RGB color, eg: 236
     */
-    //% weight=10
+    //% weight=25
     //% inlineInputMode=inline
     //% block="Set headlight color to R:%r G:%g B:%b"
     //% r.min=0 r.max=255
@@ -377,7 +468,7 @@ namespace TPBot {
     * Turn off the eye mask lamp.
     */
     //% block="Turn off the headlights"
-    //% weight=9
+    //% weight=20
     export function headlightClose(): void {
         headlightRGB(0, 0, 0)
     }
@@ -387,7 +478,7 @@ namespace TPBot {
      * @param servo ServoList, eg: ServoList.S1
      * @param angle angle of servo, eg: 90
      */
-    //% weight=5
+    //% weight=15
     //% block="Set 180° servo %servo angle to %angle °"
     //% angle.shadow="protractorPicker"
     //% servo.fieldEditor="gridpicker"
@@ -418,7 +509,7 @@ namespace TPBot {
     * @param servo ServoList, eg: ServoList.S1
     * @param speed speed of servo, eg: 100
     */
-    //% weight=4
+    //% weight=14
     //% block="Set 360° servo %servo speed to %speed \\%"
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
@@ -450,6 +541,96 @@ namespace TPBot {
             pins.setEvents(DigitalPin.P13, PinEventType.Edge);
             pins.setEvents(DigitalPin.P14, PinEventType.Edge);
             _initEvents = false;
+        }
+    }
+    
+    //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
+    //% subcategory=EDU
+    export function TPBotReadColor(): number {
+        if (TPbotColor_init == false) {
+            InitTPBotColor()
+            TPbotColorMode()
+        }
+        let tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_STATUS) & 0x1;
+        while (!tmp) {
+            basic.pause(5);
+            tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_STATUS) & 0x1;
+        }
+        let c = TPColor_read(TPbotColor_ADDR, TPbotColor_CDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_CDATAH) * 256;
+        let r = TPColor_read(TPbotColor_ADDR, TPbotColor_RDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_RDATAH) * 256;
+        let g = TPColor_read(TPbotColor_ADDR, TPbotColor_GDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_GDATAH) * 256;
+        let b = TPColor_read(TPbotColor_ADDR, TPbotColor_BDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_BDATAH) * 256;
+        // map to rgb based on clear channel
+        let avg = c / 3;
+        r = r * 255 / avg;
+        g = g * 255 / avg;
+        b = b * 255 / avg;
+        //let hue = rgb2hue(r, g, b);
+        let hue = rgbtohsl(r, g, b)
+        return hue
+    }
+    //% block="TPbot bottom Color sensor detects %color"
+    //% subcategory=EDU
+    //% color.fieldEditor="gridpicker" color.fieldOptions.columns=3
+    export function TPBotCheckColor(color: TPBotColorList): boolean {
+        let hue = TPBotReadColor()
+        switch (color) {
+            case TPBotColorList.red:
+                if (hue > 330 || hue < 20) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.green:
+                if (hue > 110 && 150 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.blue:
+                if (hue > 200 && 270 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.cyan:
+                if (hue > 160 && 180 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.magenta:
+                if (hue > 260 && 330 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.yellow:
+                if (hue > 30 && 90 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
+            case TPBotColorList.white:
+                if (hue >= 180 && 200 > hue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+                break
         }
     }
 }
