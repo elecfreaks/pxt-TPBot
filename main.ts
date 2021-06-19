@@ -484,7 +484,6 @@ namespace TPBot {
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
     export function setServo180(servo: ServoList, angle: number = 180): void {
-        let buf = pins.createBuffer(4);
         switch (servo) {
             case 0:
                 Buff[0] = 0x10;
@@ -515,7 +514,6 @@ namespace TPBot {
     //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
-        let buf = pins.createBuffer(4);
         speed = Math.map(speed, -100, 100, 0, 180)
         switch (servo) {
             case 0:
@@ -547,6 +545,8 @@ namespace TPBot {
     //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
     //% subcategory=EDU
     export function TPBotReadColor(): number {
+        Buff[0] = 0x31;
+        pins.i2cWriteBuffer(TPBotAdd, Buff);
         if (TPbotColor_init == false) {
             InitTPBotColor()
             TPbotColorMode()
@@ -567,6 +567,8 @@ namespace TPBot {
         b = b * 255 / avg;
         //let hue = rgb2hue(r, g, b);
         let hue = rgbtohsl(r, g, b)
+        Buff[0] = 0x32;
+        pins.i2cWriteBuffer(TPBotAdd, Buff);
         return hue
     }
     //% block="TPbot bottom Color sensor detects %color"
