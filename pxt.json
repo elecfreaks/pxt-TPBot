@@ -1,12 +1,10 @@
 {
-    "name": "pxt-tpbot",
+    "name": "pxt-TPBot",
     "dependencies": {
         "core": "*",
         "microphone": "*"
     },
     "files": [
-        ".vscode/settings.json",
-        ".vscode/tasks.json",
         "README.md",
         "_locales/de/pxt-TPBot-jsdoc-strings.json",
         "_locales/de/pxt-TPBot-strings.json",
