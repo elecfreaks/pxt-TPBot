@@ -553,7 +553,9 @@ namespace TPBot {
             _initEvents = false;
         }
     }
-    
+
+ /*
+
     //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
     //% subcategory=EDU
     export function TPBotReadColor(): number {
@@ -663,4 +665,5 @@ namespace TPBot {
         }
         pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
+     */   
 }
