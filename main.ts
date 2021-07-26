@@ -581,8 +581,6 @@ namespace TPBot {
         b = b * 255 / avg;
         //let hue = rgb2hue(r, g, b);
         let hue = rgbtohsl(r, g, b)
-        Buff[0] = 0x32;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
         return hue
     }
     //% block="TPbot bottom Color sensor detects %color"
@@ -659,7 +657,7 @@ namespace TPBot {
         Buff[1] = CMD;
         Buff[2] = 0;
         Buff[3] = Melody;
-        if(CMD = MelodyCMDList.Stop){
+        if(CMD == MelodyCMDList.Stop){
         Buff[2] = 0;
         Buff[3] = 0;
         }
