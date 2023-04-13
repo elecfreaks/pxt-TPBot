@@ -132,6 +132,17 @@ namespace TPBot {
         //% block="White"
         white
     }
+
+    /**
+    * Set the steering gear to 180 or 360
+    */
+    export enum ServoTypeList {
+        //% block="180°"
+        S180 = 0,
+        //% block="360°"
+        S360 = 1
+    }
+    
     const TPbotColor_ADDR = 0x39
     const TPbotColor_ENABLE = 0x80
     const TPbotColor_ATIME = 0x81
@@ -553,7 +564,42 @@ namespace TPBot {
             _initEvents = false;
         }
     }
+    /**
+     * Set the angle of servo. 
+     * @param servo ServoList, eg: ServoList.S1
+     * @param angle angle of servo, eg: 0
+     */
+    //% weight=15
+    //% block="Set %ServoTypeList servo %servo angle to %angle °"
+    export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
+        switch (servo) {
+            case 0:
+                Buff[0] = 0x10;
+                break;
+            case 1:
+                Buff[0] = 0x11;
+                break;
+            case 2:
+                Buff[0] = 0x12;
+                break;
+            case 3:
+                Buff[0] = 0x13;
+                break;
+        }
+        switch (servoType) {
+            case ServoTypeList.S180:
+                angle = Math.map(angle, 0, 180, 0, 180)
+                break
+            case ServoTypeList.S360:
+                angle = Math.map(angle, 0, 360, 0, 180)
+                break
+        }
 
+        Buff[1] = angle;
+        Buff[2] = 0;
+        Buff[3] = 0;
+        pins.i2cWriteBuffer(TPBotAdd, Buff);
+    }
  /*
 
     //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
