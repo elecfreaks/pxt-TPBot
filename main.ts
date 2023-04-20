@@ -501,6 +501,7 @@ namespace TPBot {
      * @param servo ServoList, eg: ServoList.S1
      * @param angle angle of servo, eg: 90
      */
+    /*
     //% weight=15
     //% block="Set 180° servo %servo angle to %angle °"
     //% angle.shadow="protractorPicker"
@@ -526,6 +527,7 @@ namespace TPBot {
         Buff[3] = 0;
         pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
+    */
     /**
     * Set the speed of servo.
     * @param servo ServoList, eg: ServoList.S1
