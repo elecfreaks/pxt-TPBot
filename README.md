@@ -4,7 +4,7 @@
 
 ![](/images.png/)
 
-This extension is designed to programme and drive the TPBot, You can [get TPBot from the Elecfreaks store](https://www.elecfreaks.com/store/tpbot.html)
+This extension is designed to programme and drive the TPBot, You can [get TPBot from the Elecfreaks store](https://shop.elecfreaks.com/products/elecfreaks-micro-bit-tpbot-car-kit-without-micro-bit-board?_pos=1&_sid=ed3dd36cf&_ss=r&variant=40604208529487)
 
 ## Code Example
 ```JavaScript
