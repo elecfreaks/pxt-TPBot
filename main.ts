@@ -416,7 +416,19 @@ namespace TPBot {
         pins.digitalWritePin(DigitalPin.P16, 0);
 
         // read pulse
-        const d = pins.pulseIn(DigitalPin.P15, PulseValue.High, maxCmDistance * 58);
+        //const d = pins.pulseIn(DigitalPin.P15, PulseValue.High, maxCmDistance * 58);
+        let d = 0
+        while (1) {
+            control.waitMicros(1)
+            if (pins.digitalReadPin(DigitalPin.P15) == 1) {
+                d = d + 1
+                if (d == 25000)
+                    break
+            }
+            else {
+                break
+            }
+        }
 
         switch (unit) {
             case SonarUnit.Centimeters:
