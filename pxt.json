@@ -1,6 +1,6 @@
 {
     "name": "pxt-TPBot",
-    "version": "1.2.9",
+    "version": "1.2.10",
     "description": "The intelligent programming car TPBot(Tianpeng) produced by ELECFREAKS Co.ltd",
     "dependencies": {
         "core": "*"
@@ -19,7 +19,7 @@
     ],
     "public": true,
     "targetVersions": {
-        "target": "7.0.40",
+        "target": "4.0.18",
         "targetId": "microbit"
     },
     "supportedTargets": [
