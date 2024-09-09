@@ -220,8 +220,8 @@ namespace TPBot {
 
     /**
      * Set the speed of left and right wheels. 
-     * @param lspeed Left wheel speed , eg: 100
-     * @param rspeed Right wheel speed, eg: -100
+     * @param lspeed Left wheel speed
+     * @param rspeed Right wheel speed
      */
     //% weight=99
     //% block="Set left wheel speed at %lspeed\\%| right wheel speed at %rspeed\\%"
@@ -263,8 +263,8 @@ namespace TPBot {
     }
     /**
     * Setting the direction and time of travel.
-    * @param direc Left wheel speed , eg: DriveDirection.Forward
-    * @param speed Travel time, eg: 100
+    * @param direc Left wheel speed 
+    * @param speed Travel time
     */
     //% weight=95
     //% block="Go %direc at speed %speed\\% for %time seconds"
@@ -294,8 +294,8 @@ namespace TPBot {
     }
     /**
     * Setting the direction and speed of travel.
-    * @param direc Left wheel speed , eg: DriveDirection.Forward
-    * @param speed Travel time, eg: 100
+    * @param direc Left wheel speed
+    * @param speed Travel time
     */
     //% weight=90
     //% block="Go %direc at speed %speed\\%"
@@ -329,8 +329,8 @@ namespace TPBot {
     }
     /**
      * track one side
-     * @param side Line sensor edge , eg: LineState.Left
-     * @param state Line sensor status, eg: LineSide.FindLine
+     * @param side Line sensor edge 
+     * @param state Line sensor status
      */
     //% weight=70
     //% block="%side line sensor detected %state"
@@ -359,7 +359,7 @@ namespace TPBot {
     }
     /**
     * Judging the Current Status of Tracking Module.
-    * @param state Four states of tracking module, eg: TrackingState.L_R_line
+    * @param state Four states of tracking module
     */
     //% weight=60
     //% block="Line sensor state is %state"
@@ -400,7 +400,7 @@ namespace TPBot {
     }
     /**
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
-    * @param Sonarunit two states of ultrasonic module, eg: SonarUnit.Centimeters
+    * @param Sonarunit two states of ultrasonic module
     */
     //% weight=40
     //% block="Sonar distance unit %unit"
@@ -441,8 +441,8 @@ namespace TPBot {
     }
     /**
     * sonar Judge.
-    * @param dis sonar distance , eg: 5
-    * @param judge state, eg: Sonarjudge.<
+    * @param dis sonar distance 
+    * @param judge state
     */
     //% weight=35
     //% block="Sonar distance %judge %dis cm"
@@ -482,9 +482,9 @@ namespace TPBot {
 
     /**
     * Set RGB color of eye mask lamp.
-    * @param r R color value of RGB color, eg: 83
-    * @param g G color value of RGB color, eg: 202
-    * @param b B color value of RGB color, eg: 236
+    * @param r R color value of RGB color
+    * @param g G color value of RGB color
+    * @param b B color value of RGB color
     */
     //% weight=25
     //% inlineInputMode=inline
@@ -510,8 +510,8 @@ namespace TPBot {
 
     /**
      * Set the angle of servo. 
-     * @param servo ServoList, eg: ServoList.S1
-     * @param angle angle of servo, eg: 90
+     * @param servo ServoList
+     * @param angle angle of servo
      */
     /*
     //% weight=15
@@ -542,8 +542,8 @@ namespace TPBot {
     */
     /**
     * Set the speed of servo.
-    * @param servo ServoList, eg: ServoList.S1
-    * @param speed speed of servo, eg: 100
+    * @param servo ServoList
+    * @param speed speed of servo
     */
     //% weight=14
     //% block="Set 360° servo %servo speed to %speed \\%"
@@ -580,8 +580,8 @@ namespace TPBot {
     }
     /**
      * Set the angle of servo. 
-     * @param servo ServoList, eg: ServoList.S1
-     * @param angle angle of servo, eg: 0
+     * @param servo ServoList
+     * @param angle angle of servo
      */
     //% weight=15
     //% block="Set %ServoTypeList servo %servo angle to %angle °"
