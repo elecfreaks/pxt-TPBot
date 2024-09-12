@@ -1,7 +1,5 @@
-/**
-* List of driving directions
-*/
-export enum DriveDirection {
+
+enum DriveDirection {
     //% block="Forward"
     Forward = 0,
     //% block="Backward"
@@ -11,10 +9,8 @@ export enum DriveDirection {
     //% block="Right"
     Right = 3
 }
-/**
-* Status List of Tracking Modules
-*/
-export enum TrackingState {
+
+enum TrackingState {
     //% block="● ●" enumval=0
     L_R_line,
 
@@ -27,28 +23,21 @@ export enum TrackingState {
     //% block="◌ ◌" enumval=3
     L_R_unline
 }
-/**
-* Unit of Ultrasound Module
-*/
-export enum SonarUnit {
+
+enum SonarUnit {
     //% block="cm"
     Centimeters,
     //% block="inches"
     Inches
 }
-/**
-* Ultrasonic judgment
-*/
-export enum Sonarjudge {
+
+enum Sonarjudge {
     //% block="<"
     Less,
     //% block=">"
     Greater
 }
-/**
-* Select the servo on the S1 or S2
-*/
-export enum ServoList {
+enum ServoList {
     //% block="S1"
     S1 = 0,
     //% block="S2"
@@ -58,56 +47,44 @@ export enum ServoList {
     //% block="S4"
     S4 = 3
 }
-/**
-* Line Sensor states  
-*/
-export enum LineState{
+enum LineState{
     //% block="Black" enumval=0
     Black,
     //% block="White"enumval=1
     White
 }
-/**
-* Line Sensor Side
-*/
-export enum LineSide{
+enum LineSide{
     //% block="Left" enumval=0
     Left,
     //% block="Right" enumval=1
     Right
 }
-/**
- * Line Sensor events  
- */
-export enum MbEvents {
+enum MbEvents {
     //% block="Black"
     Black = DAL.MICROBIT_PIN_EVT_FALL,
     //% block="White"
     White = DAL.MICROBIT_PIN_EVT_RISE
 }
-/**
- * Pins used to generate events
- */
-export enum MbPins {
+enum MbPins {
     //% block="Left"
     Left = DAL.MICROBIT_ID_IO_P13,
     //% block="Right"
     Right = DAL.MICROBIT_ID_IO_P14
 }
-export enum MelodyCMDList {
+enum MelodyCMDList {
     //% block="Play"
     Play = 0x03,
     //% block="Stop"
     Stop = 0x16
 
 }
-export enum MelodyList {
+enum MelodyList {
     //% block="Happy"
     Happy = 0x01
 
 }
 /////////////////////////color/////////////////////////
-export enum TPBotColorList {
+enum TPBotColorList {
     //% block="Red"
     red,
     //% block="Green"
@@ -124,10 +101,7 @@ export enum TPBotColorList {
     white
 }
 
-/**
-* Set the steering gear to 180 or 360
-*/
-export enum ServoTypeList {
+enum ServoTypeList {
     //% block="180°"
     S180 = 0,
     //% block="360°"
