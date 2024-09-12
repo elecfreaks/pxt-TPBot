@@ -188,7 +188,7 @@ namespace TPBot {
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
         if (readHardVersion() == 2) {
-            TPBotV1.setTravelTime(direc, speed,time);
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
         } else {
             TPBotV1.setTravelTime(direc, speed,time);
         }
@@ -203,17 +203,10 @@ namespace TPBot {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
-        if (direc == 0) {
-            setWheels(speed, speed)
-        }
-        if (direc == 1) {
-            setWheels(-speed, -speed)
-        }
-        if (direc == 2) {
-            setWheels(-speed, speed)
-        }
-        if (direc == 3) {
-            setWheels(speed, -speed)
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.setTravelSpeed(direc, speed);
         }
     }
     /**
@@ -222,11 +215,11 @@ namespace TPBot {
     //% weight=80
     //% block="Stop the car immediately"
     export function stopCar(): void {
-        Buff[0] = 0x01;     //控制位 0x01电机
-        Buff[1] = 0;		//左轮速度
-        Buff[2] = 0;        //右轮速度
-        Buff[3] = 0;        //正反转加权值
-        pins.i2cWriteBuffer(TPBotAdd, Buff);  //传递数据
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.stopCar();
+        }
     }
     /**
      * track one side
@@ -237,25 +230,11 @@ namespace TPBot {
     //% block="%side line sensor detected %state"
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
-    export function trackSide(side: LineSide, state: LineState): boolean {
-        pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
-        pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
-        let left_tracking = pins.digitalReadPin(DigitalPin.P13);
-        let right_tracking = pins.digitalReadPin(DigitalPin.P14);
-        if (side == 0 && state == 1 && left_tracking == 1) {
-            return true;
-        }
-        else if (side == 0 && state == 0 && left_tracking == 0) {
-            return true;
-        }
-        else if (side == 1 && state == 1 && right_tracking == 1) {
-            return true;
-        }
-        else if (side == 1 && state == 0 && right_tracking == 0) {
-            return true;
-        }
-        else {
-            return false;
+    export function trackSide(side: LineSide, State: LineState): boolean {
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.trackSide(side,State);
         }
     }
     /**
@@ -267,24 +246,10 @@ namespace TPBot {
     //% state.fieldEditor="gridpicker"
     //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
-        pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
-        pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
-        let left_tracking = pins.digitalReadPin(DigitalPin.P13);
-        let right_tracking = pins.digitalReadPin(DigitalPin.P14);
-        if (left_tracking == 0 && right_tracking == 0 && state == 0) {
-            return true;
-        }
-        else if (left_tracking == 1 && right_tracking == 0 && state == 1) {
-            return true;
-        }
-        else if (left_tracking == 0 && right_tracking == 1 && state == 2) {
-            return true;
-        }
-        else if (left_tracking == 1 && right_tracking == 1 && state == 3) {
-            return true;
-        }
-        else {
-            return false;
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.trackLine(state);
         }
     }
     /**
@@ -295,9 +260,11 @@ namespace TPBot {
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
-        initEvents();
-        control.onEvent(<number>side, <number>state, handler);
-        basic.pause(5);
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.trackEvent(side,state,handler);
+        }
     }
     /**
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
@@ -308,36 +275,10 @@ namespace TPBot {
     //% unit.fieldEditor="gridpicker"
     //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
-        // send pulse
-        pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
-        pins.digitalWritePin(DigitalPin.P16, 0);
-        control.waitMicros(2);
-        pins.digitalWritePin(DigitalPin.P16, 1);
-        control.waitMicros(10);
-        pins.digitalWritePin(DigitalPin.P16, 0);
-
-        // read pulse
-        const d = pins.pulseIn(DigitalPin.P15, PulseValue.High, maxCmDistance * 58);
-        /*let d = 0
-        while (1) {
-            control.waitMicros(1)
-            if (pins.digitalReadPin(DigitalPin.P15) == 1) {
-                d = d + 1
-                if (d == 25000)
-                    break
-            }
-            else {
-                break
-            }
-        }*/
-
-        switch (unit) {
-            case SonarUnit.Centimeters:
-                return Math.idiv(d, 58);
-            case SonarUnit.Inches:
-                return Math.idiv(d, 148);
-            default:
-                return d;
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.sonarReturn(unit,maxCmDistance);
         }
     }
     /**
@@ -350,21 +291,10 @@ namespace TPBot {
     //% dis.min=1 dis.max=400
     //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
-        if (judge == 0) {
-            if (sonarReturn(SonarUnit.Centimeters) < dis && sonarReturn(SonarUnit.Centimeters) != 0) {
-                return true
-            }
-            else {
-                return false
-            }
-        }
-        else {
-            if (sonarReturn(SonarUnit.Centimeters) > dis) {
-                return true
-            }
-            else {
-                return false
-            }
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.sonarJudge(judge,dis);
         }
     }
     /**
@@ -374,11 +304,11 @@ namespace TPBot {
     //% weight=30
     //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
-        let r, g, b: number = 0
-        r = color >> 16
-        g = (color >> 8) & 0xFF
-        b = color & 0xFF
-        headlightRGB(r, g, b)
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.headlightColor(color);
+        }
     }
 
     /**
@@ -394,11 +324,11 @@ namespace TPBot {
     //% g.min=0 g.max=255
     //% b.min=0 b.max=255
     export function headlightRGB(r: number, g: number, b: number): void {
-        Buff[0] = 0x20;
-        Buff[1] = r;
-        Buff[2] = g;
-        Buff[3] = b;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.headlightRGB(r, g, b);
+        }
     }
     /**
     * Turn off the eye mask lamp.
@@ -406,7 +336,11 @@ namespace TPBot {
     //% block="Turn off the headlights"
     //% weight=20
     export function headlightClose(): void {
-        headlightRGB(0, 0, 0)
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.headlightClose();
+        }
     }
 
     /**
@@ -452,31 +386,10 @@ namespace TPBot {
     //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
-        speed = Math.map(speed, -100, 100, 0, 180)
-        switch (servo) {
-            case 0:
-                Buff[0] = 0x10;
-                break;
-            case 1:
-                Buff[0] = 0x11;
-                break;
-            case 2:
-                Buff[0] = 0x12;
-                break;
-            case 3:
-                Buff[0] = 0x13;
-                break;
-        }
-        Buff[1] = speed;
-        Buff[2] = 0;
-        Buff[3] = 0;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
-    }
-    function initEvents(): void {
-        if (_initEvents) {
-            pins.setEvents(DigitalPin.P13, PinEventType.Edge);
-            pins.setEvents(DigitalPin.P14, PinEventType.Edge);
-            _initEvents = false;
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.setServo360(servo, speed);
         }
     }
     /**
@@ -487,33 +400,11 @@ namespace TPBot {
     //% weight=15
     //% block="Set %ServoTypeList servo %servo angle to %angle °"
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
-        switch (servo) {
-            case 0:
-                Buff[0] = 0x10;
-                break;
-            case 1:
-                Buff[0] = 0x11;
-                break;
-            case 2:
-                Buff[0] = 0x12;
-                break;
-            case 3:
-                Buff[0] = 0x13;
-                break;
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+        } else {
+            TPBotV1.setServo(servoType, servo, angle);
         }
-        switch (servoType) {
-            case ServoTypeList.S180:
-                angle = Math.map(angle, 0, 180, 0, 180)
-                break
-            case ServoTypeList.S360:
-                angle = Math.map(angle, 0, 360, 0, 180)
-                break
-        }
-
-        Buff[1] = angle;
-        Buff[2] = 0;
-        Buff[3] = 0;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
 
     let version = -1;
