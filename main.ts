@@ -224,7 +224,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             TPBotV2.trackLine(state);
         } else {
-            TPBotV1.trackLine(state);
+            return TPBotV1.trackLine(state);
         }
     }
     /**
