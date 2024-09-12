@@ -209,7 +209,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.trackSide(side, State);
         } else {
-            TPBotV1.trackSide(side, State);
+            return TPBotV1.trackSide(side, State);
         }
     }
     /**
