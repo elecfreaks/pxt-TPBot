@@ -38,6 +38,12 @@
   "TPBot.trackEvent|block": "当 %side| 巡线传感器检测到 %state",
   "TPBot.trackLine|block": "巡线传感器的状态为 %state",
   "TPBot.trackSide|block": "%side 巡线传感器检测到 %state",
+  "TPBot.pidSpeedControl|block": "设置左轮速度为 %lspeed, 右轮速度为 %rspeed %unit",
+  "TPBot.pidRunDistance|block": "向 %Direction 移动 %distance %DistanceUnit",
+  "TPBot.pidRunAngle|block": "设置 %Wheel 转动 %angle %AngleUnits",
+  "TPBot.pidRunSteering|block": "设置小车 %TurnUnit %TurnAngleUnit",
+  "TPBot.pidBlockSet|block": "设置方格边长为 %length %DistanceUnit",
+  "TPBot.pidRunBlock|block": "设置小车向前行驶 %cnt 方格",
   "TPBot|block": "天蓬",
   "{id:category}TPBot": "天蓬",
   "{id:subcategory}PID": "PID控制"
