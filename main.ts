@@ -207,9 +207,9 @@ namespace TPBot {
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     export function trackSide(side: LineSide, State: LineState): boolean {
         if (readHardVersion() == 2) {
-            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+            return true;//TODO TPBotV1.setTravelTime(lspeed, rspeed);
         } else {
-            TPBotV1.trackSide(side,State);
+            return TPBotV1.trackSide(side,State);
         }
     }
     /**
@@ -222,9 +222,9 @@ namespace TPBot {
     //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
         if (readHardVersion() == 2) {
-            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+            return true;//TODO TPBotV1.setTravelTime(lspeed, rspeed);
         } else {
-            TPBotV1.trackLine(state);
+            return TPBotV1.trackLine(state);
         }
     }
     /**
@@ -251,9 +251,9 @@ namespace TPBot {
     //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
         if (readHardVersion() == 2) {
-            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+            return 0;//TODO TPBotV1.setTravelTime(lspeed, rspeed);
         } else {
-            TPBotV1.sonarReturn(unit,maxCmDistance);
+            return TPBotV1.sonarReturn(unit,maxCmDistance);
         }
     }
     /**
@@ -267,9 +267,9 @@ namespace TPBot {
     //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
         if (readHardVersion() == 2) {
-            //TODO TPBotV1.setTravelTime(lspeed, rspeed);
+            return true;//TODO TPBotV1.setTravelTime(lspeed, rspeed);
         } else {
-            TPBotV1.sonarJudge(judge,dis);
+            return TPBotV1.sonarJudge(judge,dis);
         }
     }
     /**

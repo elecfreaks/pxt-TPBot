@@ -147,7 +147,7 @@ namespace TPBotV1 {
     }
     /**
     * Setting the direction and speed of travel.
-    * @param direc Left wheel speed
+    * @param direc set the direction of travel
     * @param speed Travel time
     */
     //% weight=90
