@@ -1,7 +1,6 @@
 namespace TPBotV2 {
     const tpbotAdd = 0x10
     let initEventUseOne = true
-
     /**
     * List of driving directions
     */

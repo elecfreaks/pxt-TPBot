@@ -2,7 +2,7 @@ namespace TPBotV1 {
     const TPBotAdd = 0X10
     let Buff = pins.createBuffer(4);
     let _initEvents = true
-
+    
     const TPbotColor_ADDR = 0x39
     const TPbotColor_ENABLE = 0x80
     const TPbotColor_ATIME = 0x81
