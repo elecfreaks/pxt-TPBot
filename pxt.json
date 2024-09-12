@@ -15,7 +15,9 @@
         "_locales/ja/pxt-TPBot-jsdoc-strings.json"
     ],
     "testFiles": [
-        "test.ts"
+        "test.ts",
+        "V1.ts",
+        "V2.ts"
     ],
     "public": true,
     "targetVersions": {
