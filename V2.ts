@@ -1,7 +1,11 @@
+/**
+ * The intelligent programming car produced by ELECFREAKS Co.ltd
+ */
+//% weight=0 color=#32b9b9 icon="\uf1b9"
+//% block="TPBot" 
 namespace TPBotV2 {
     const tpbotAdd = 0x10
     let initEventUseOne = true
-
     /**
     * List of driving directions
     */
@@ -231,6 +235,11 @@ namespace TPBotV2 {
      * @param lspeed Left wheel speed , eg: 100
      * @param rspeed Right wheel speed, eg: 100
      */
+    //% weight=99
+    //% group="Basic functions"
+    //% block="Set left wheel speed at %lspeed\\%| right wheel speed at %rspeed\\%"
+    //% lspeed.min=-100 lspeed.max=100
+    //% rspeed.min=-100 rspeed.max=100
     export function motorControl(lspeed: number = 50, rspeed: number = 50): void {
 
         let direction: number = 0;
@@ -253,6 +262,12 @@ namespace TPBotV2 {
     * @param speed Setting the speed, eg: 100
     * @param time Setting the time, eg: 1
     */
+    //% weight=95
+    //% group="Basic functions"
+    //% block="Go %direc at speed %speed\\% for %time seconds"
+    //% speed.min=0 speed.max=100
+    //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
+
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
         if (direc == 0) {
             motorControl(speed, speed)
@@ -281,6 +296,11 @@ namespace TPBotV2 {
     * @param direc Setting the direction , eg: DriveDirection.Forward
     * @param speed Setting the speed, eg: 100
     */
+    //% weight=90
+    //% group="Basic functions"
+    //% block="Go %direc at speed %speed\\%"
+    //% speed.min=0 speed.max=100
+    //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
         if (direc == 0) {
             motorControl(speed, speed)
@@ -299,6 +319,9 @@ namespace TPBotV2 {
     /**
     * Stop the car. 
     */
+    //% weight=80
+    //% group="Basic functions"
+    //% block="Stop the car immediately"
     export function stopCar(): void {
         motorControl(0, 0);
     }
@@ -308,6 +331,11 @@ namespace TPBotV2 {
      * @param side Line sensor edge , eg: LineState.Left
      * @param state Line sensor status, eg: LineSide.FindLine
      */
+    //% weight=70
+    //% group="Basic functions"
+    //% block="%side line sensor detected %state"
+    //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
+    //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     export function trackSide(side: LineSide, state: LineState): boolean {
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -333,6 +361,11 @@ namespace TPBotV2 {
     * Judging the Current Status of Tracking Module.
     * @param state Four states of tracking module, eg: TrackingState.L_R_line
     */
+    //% weight=60
+    //% group="Basic functions"
+    //% block="Line sensor state is %state"
+    //% state.fieldEditor="gridpicker"
+    //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -359,6 +392,11 @@ namespace TPBotV2 {
     * @MbPins side Line sensor edge , eg: MbPins.Left
     * @MbEvents state Line sensor status, eg: MbEvents.FindLine
     */
+    //% weight=50
+    //% group="Basic functions"
+    //% block="On %side| line sensor detected %state"
+    //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
+    //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
         initEvents();
         control.onEvent(<number>side, <number>state, handler);
@@ -368,6 +406,11 @@ namespace TPBotV2 {
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
     * @param Sonarunit two states of ultrasonic module, eg: SonarUnit.Centimeters
     */
+    //% weight=40
+    //% group="Basic functions"
+    //% block="Sonar distance unit %unit"
+    //% unit.fieldEditor="gridpicker"
+    //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
         // send pulse
         pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
@@ -406,6 +449,11 @@ namespace TPBotV2 {
     * @param dis sonar distance , eg: 5
     * @param judge state, eg: Sonarjudge.<
     */
+    //% weight=35
+    //% group="Basic functions"
+    //% block="Sonar distance %judge %dis cm"
+    //% dis.min=5 dis.max=400
+    //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
         if (judge == 0) {
             if (sonarReturn(SonarUnit.Centimeters) < dis && sonarReturn(SonarUnit.Centimeters) != 0) {
@@ -427,6 +475,10 @@ namespace TPBotV2 {
     /**
     * Select a color to Set eye mask lamp.
     */
+    //% block="Set headlight color to $color"
+    //% weight=30
+    //% group="Basic functions"
+    //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
         let r = color >> 16
         let g = (color >> 8) & 0xFF
@@ -440,12 +492,22 @@ namespace TPBotV2 {
     * @param g G color value of RGB color, eg: 202
     * @param b B color value of RGB color, eg: 236
     */
+    //% weight=25
+    //% group="Basic functions"
+    //% inlineInputMode=inline
+    //% block="Set headlight color to R:%r G:%g B:%b"
+    //% r.min=0 r.max=255
+    //% g.min=0 g.max=255
+    //% b.min=0 b.max=255
     export function headlightRGB(r: number, g: number, b: number): void {
         i2cCommandSend(0x30, [r, g, b]);
     }
     /**
     * Turn off the eye mask lamp.
     */
+    //% block="Turn off the headlights"
+    //% group="Basic functions"
+    //% weight=20
     export function headlightClose(): void {
         headlightRGB(0, 0, 0)
     }
@@ -455,6 +517,12 @@ namespace TPBotV2 {
     * @param servo ServoList, eg: ServoList.S1
     * @param speed speed of servo, eg: 100
     */
+    //% weight=14
+    //% group="Basic functions"
+    //% block="Set 360° servo %servo speed to %speed \\%"
+    //% servo.fieldEditor="gridpicker"
+    //% servo.fieldOptions.columns=1
+    //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
         speed = Math.map(speed, -100, 100, 0, 180);
         i2cCommandSend(0x20, [servo, speed]);
@@ -465,6 +533,9 @@ namespace TPBotV2 {
      * @param servo ServoList, eg: ServoList.S1
      * @param angle angle of servo, eg: 0
      */
+    //% weight=15
+    //% group="Basic functions"
+    //% block="Set %ServoTypeList servo %servo angle to %angle °"
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
         switch (servoType) {
             case ServoTypeList.S180:
@@ -489,6 +560,9 @@ namespace TPBotV2 {
      * @rspeed set the rspeed
      * @unit set the SpeedUnit
      */
+    //% group="PID Control"
+    //% block="set left wheel speed %lspeed, right wheel speed %rspeed %unit"
+    //% weight=210
     export function pidSpeedControl(lspeed: number, rspeed: number, unit: SpeedUnit): void {
 
         let direction: number = 0;
@@ -538,6 +612,9 @@ namespace TPBotV2 {
      * @distance set the distance eg: 0
      * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
      */
+    //% group="PID Control"
+    //% weight=200
+    //% block="go %Direction %distance %DistanceUnit"
     export function pidRunDistance(direction: Direction, distance: number, unit: DistanceUnit): void {
 
         distance *= (unit == DistanceUnit.Cm ? 10 : 25.4)
@@ -554,6 +631,9 @@ namespace TPBotV2 {
      * @angle set the angle or number of turns eg: 0
      * @angleUnits set the angle unit eg: AngleUnit.angle
      */
+    //% group="PID Control"
+    //% weight=200
+    //% block="set %Wheel rotation %angle %AngleUnits"
     export function pidRunAngle(wheel: Wheel, angle: number, angleUnits: AngleUnits): void {
         let l_angle_h = 0;
         let l_angle_l = 0;
@@ -584,6 +664,9 @@ namespace TPBotV2 {
     * @length set the length of each block eg: 0
     * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
     */
+    //% group="PID Control"
+    //% weight=180
+    //% block="set length of the squares as %length %DistanceUnit"
     export function pidBlockSet(length: number, distanceUnit: DistanceUnit): void {
         blockLength = length
         blockUnit = distanceUnit
@@ -593,6 +676,9 @@ namespace TPBotV2 {
     * run a specific number of block
     * @cnt set the number of block eg: 0
     */
+    //% group="PID Control"
+    //% weight=170
+    //% block="go forward %cnt squares"
     export function pidRunBlock(cnt: number): void {
         pidRunDistance(Direction.Forward, blockLength * cnt, blockUnit)
     }
@@ -603,6 +689,9 @@ namespace TPBotV2 {
      * @TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
      * @TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
      */
+    //% group="PID Control"
+    //% weight=190
+    //% block="set car %TurnUnit for angle %TurnAngleUnit"
     export function pidRunSteering(turn: TurnUnit, angle: TurnAngleUnit): void {
         let l_angle_h = 0;
         let l_angle_l = 0;

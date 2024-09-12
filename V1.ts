@@ -2,7 +2,7 @@ namespace TPBotV1 {
     const TPBotAdd = 0X10
     let Buff = pins.createBuffer(4);
     let _initEvents = true
-
+    
     const TPbotColor_ADDR = 0x39
     const TPbotColor_ENABLE = 0x80
     const TPbotColor_ATIME = 0x81
@@ -83,6 +83,10 @@ namespace TPBotV1 {
      * @param lspeed Left wheel speed
      * @param rspeed Right wheel speed
      */
+    //% weight=99
+    //% block="Set left wheel speed at %lspeed\\%| right wheel speed at %rspeed\\%"
+    //% lspeed.min=-100 lspeed.max=100
+    //% rspeed.min=-100 rspeed.max=100
     export function setWheels(lspeed: number = 50, rspeed: number = 50): void {
         if (lspeed > 100) {
             lspeed = 100;
@@ -123,6 +127,9 @@ namespace TPBotV1 {
     * @param speed Travel time
     */
     //% weight=95
+    //% block="Go %direc at speed %speed\\% for %time seconds"
+    //% speed.min=0 speed.max=100
+    //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
         if (direc == 0) {
             setWheels(speed, speed)
@@ -147,10 +154,13 @@ namespace TPBotV1 {
     }
     /**
     * Setting the direction and speed of travel.
-    * @param direc set the direction of travel
+    * @param direc Left wheel speed
     * @param speed Travel time
     */
     //% weight=90
+    //% block="Go %direc at speed %speed\\%"
+    //% speed.min=0 speed.max=100
+    //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
         if (direc == 0) {
             setWheels(speed, speed)
@@ -168,6 +178,8 @@ namespace TPBotV1 {
     /**
     * Stop the car. 
     */
+    //% weight=80
+    //% block="Stop the car immediately"
     export function stopCar(): void {
         Buff[0] = 0x01;     //控制位 0x01电机
         Buff[1] = 0;		//左轮速度
@@ -180,6 +192,10 @@ namespace TPBotV1 {
      * @param side Line sensor edge 
      * @param state Line sensor status
      */
+    //% weight=70
+    //% block="%side line sensor detected %state"
+    //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
+    //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     export function trackSide(side: LineSide, state: LineState): boolean {
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -205,6 +221,10 @@ namespace TPBotV1 {
     * Judging the Current Status of Tracking Module.
     * @param state Four states of tracking module
     */
+    //% weight=60
+    //% block="Line sensor state is %state"
+    //% state.fieldEditor="gridpicker"
+    //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
         pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
         pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
@@ -229,6 +249,10 @@ namespace TPBotV1 {
     /**
     * Runs when line sensor finds or loses.
     */
+    //% weight=50
+    //% block="On %side| line sensor detected %state"
+    //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
+    //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
         initEvents();
         control.onEvent(<number>side, <number>state, handler);
@@ -238,6 +262,10 @@ namespace TPBotV1 {
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
     * @param Sonarunit two states of ultrasonic module
     */
+    //% weight=40
+    //% block="Sonar distance unit %unit"
+    //% unit.fieldEditor="gridpicker"
+    //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
         // send pulse
         pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
@@ -276,6 +304,10 @@ namespace TPBotV1 {
     * @param dis sonar distance 
     * @param judge state
     */
+    //% weight=35
+    //% block="Sonar distance %judge %dis cm"
+    //% dis.min=1 dis.max=400
+    //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
         if (judge == 0) {
             if (sonarReturn(SonarUnit.Centimeters) < dis && sonarReturn(SonarUnit.Centimeters) != 0) {
@@ -297,6 +329,9 @@ namespace TPBotV1 {
     /**
     * Select a color to Set eye mask lamp.
     */
+    //% block="Set headlight color to $color"
+    //% weight=30
+    //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
         let r, g, b: number = 0
         r = color >> 16
@@ -311,6 +346,12 @@ namespace TPBotV1 {
     * @param g G color value of RGB color
     * @param b B color value of RGB color
     */
+    //% weight=25
+    //% inlineInputMode=inline
+    //% block="Set headlight color to R:%r G:%g B:%b"
+    //% r.min=0 r.max=255
+    //% g.min=0 g.max=255
+    //% b.min=0 b.max=255
     export function headlightRGB(r: number, g: number, b: number): void {
         Buff[0] = 0x20;
         Buff[1] = r;
@@ -321,6 +362,8 @@ namespace TPBotV1 {
     /**
     * Turn off the eye mask lamp.
     */
+    //% block="Turn off the headlights"
+    //% weight=20
     export function headlightClose(): void {
         headlightRGB(0, 0, 0)
     }
@@ -331,6 +374,11 @@ namespace TPBotV1 {
      * @param angle angle of servo
      */
     /*
+    //% weight=15
+    //% block="Set 180° servo %servo angle to %angle °"
+    //% angle.shadow="protractorPicker"
+    //% servo.fieldEditor="gridpicker"
+    //% servo.fieldOptions.columns=1
     export function setServo180(servo: ServoList, angle: number = 180): void {
         switch (servo) {
             case 0:
@@ -357,6 +405,11 @@ namespace TPBotV1 {
     * @param servo ServoList
     * @param speed speed of servo
     */
+    //% weight=14
+    //% block="Set 360° servo %servo speed to %speed \\%"
+    //% servo.fieldEditor="gridpicker"
+    //% servo.fieldOptions.columns=1
+    //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
         speed = Math.map(speed, -100, 100, 0, 180)
         switch (servo) {
@@ -390,6 +443,8 @@ namespace TPBotV1 {
      * @param servo ServoList
      * @param angle angle of servo
      */
+    //% weight=15
+    //% block="Set %ServoTypeList servo %servo angle to %angle °"
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
         switch (servo) {
             case 0:

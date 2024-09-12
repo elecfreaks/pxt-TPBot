@@ -47,13 +47,13 @@ enum ServoList {
     //% block="S4"
     S4 = 3
 }
-enum LineState{
+enum LineState {
     //% block="Black" enumval=0
     Black,
     //% block="White"enumval=1
     White
 }
-enum LineSide{
+enum LineSide {
     //% block="Left" enumval=0
     Left,
     //% block="Right" enumval=1
@@ -134,7 +134,7 @@ let TPbotColor_init = false
  */
 //% weight=0 color=#32b9b9 icon="\uf1b9"
 //% block="TPBot" 
-namespace TPBot { 
+namespace TPBot {
 
     /**
      * Set the speed of left and right wheels. 
@@ -165,7 +165,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             TPBotV2.setTravelTime(direc, speed, time);
         } else {
-            TPBotV1.setTravelTime(direc, speed,time);
+            TPBotV1.setTravelTime(direc, speed, time);
         }
     }
     /**
@@ -209,7 +209,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.trackSide(side, State);
         } else {
-            return TPBotV1.trackSide(side,State);
+            TPBotV1.trackSide(side, State);
         }
     }
     /**
@@ -238,7 +238,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             TPBotV2.trackEvent(side, state, handler);
         } else {
-            TPBotV1.trackEvent(side,state,handler);
+            TPBotV1.trackEvent(side, state, handler);
         }
     }
     /**
@@ -253,7 +253,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.sonarReturn(unit, maxCmDistance);
         } else {
-            return TPBotV1.sonarReturn(unit,maxCmDistance);
+            TPBotV1.sonarReturn(unit, maxCmDistance);
         }
     }
     /**
@@ -269,7 +269,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.sonarJudge(judge, dis);
         } else {
-            return TPBotV1.sonarJudge(judge,dis);
+            TPBotV1.sonarJudge(judge, dis);
         }
     }
     /**
@@ -518,7 +518,7 @@ namespace TPBot {
     let version = -1;
     export function readHardVersion(): number {
         // if (version == -1) {
-            
+
         //     let i2cBuffer = pins.createBuffer(7);
         //     i2cBuffer[0] = 0x99;
         //     i2cBuffer[1] = 0x15;
