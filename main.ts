@@ -1,222 +1,165 @@
+const TPBotAdd = 0X10
+let Buff = pins.createBuffer(4);
+let _initEvents = true
+/**
+* List of driving directions
+*/
+export enum DriveDirection {
+    //% block="Forward"
+    Forward = 0,
+    //% block="Backward"
+    Backward = 1,
+    //% block="Left"
+    Left = 2,
+    //% block="Right"
+    Right = 3
+}
+/**
+* Status List of Tracking Modules
+*/
+export enum TrackingState {
+    //% block="● ●" enumval=0
+    L_R_line,
+
+    //% block="◌ ●" enumval=1
+    L_unline_R_line,
+
+    //% block="● ◌" enumval=2
+    L_line_R_unline,
+
+    //% block="◌ ◌" enumval=3
+    L_R_unline
+}
+/**
+* Unit of Ultrasound Module
+*/
+export enum SonarUnit {
+    //% block="cm"
+    Centimeters,
+    //% block="inches"
+    Inches
+}
+/**
+* Ultrasonic judgment
+*/
+export enum Sonarjudge {
+    //% block="<"
+    Less,
+    //% block=">"
+    Greater
+}
+/**
+* Select the servo on the S1 or S2
+*/
+export enum ServoList {
+    //% block="S1"
+    S1 = 0,
+    //% block="S2"
+    S2 = 1,
+    //% block="S3"
+    S3 = 2,
+    //% block="S4"
+    S4 = 3
+}
+/**
+* Line Sensor states  
+*/
+export enum LineState{
+    //% block="Black" enumval=0
+    Black,
+    //% block="White"enumval=1
+    White
+}
+/**
+* Line Sensor Side
+*/
+export enum LineSide{
+    //% block="Left" enumval=0
+    Left,
+    //% block="Right" enumval=1
+    Right
+}
+/**
+ * Line Sensor events  
+ */
+export enum MbEvents {
+    //% block="Black"
+    Black = DAL.MICROBIT_PIN_EVT_FALL,
+    //% block="White"
+    White = DAL.MICROBIT_PIN_EVT_RISE
+}
+/**
+ * Pins used to generate events
+ */
+export enum MbPins {
+    //% block="Left"
+    Left = DAL.MICROBIT_ID_IO_P13,
+    //% block="Right"
+    Right = DAL.MICROBIT_ID_IO_P14
+}
+export enum MelodyCMDList {
+    //% block="Play"
+    Play = 0x03,
+    //% block="Stop"
+    Stop = 0x16
+
+}
+export enum MelodyList {
+    //% block="Happy"
+    Happy = 0x01
+
+}
+/////////////////////////color/////////////////////////
+export enum TPBotColorList {
+    //% block="Red"
+    red,
+    //% block="Green"
+    green,
+    //% block="Blue"
+    blue,
+    //% block="Cyan"
+    cyan,
+    //% block="Magenta"
+    magenta,
+    //% block="Yellow"
+    yellow,
+    //% block="White"
+    white
+}
+
+/**
+* Set the steering gear to 180 or 360
+*/
+export enum ServoTypeList {
+    //% block="180°"
+    S180 = 0,
+    //% block="360°"
+    S360 = 1
+}
+
+const TPbotColor_ADDR = 0x39
+const TPbotColor_ENABLE = 0x80
+const TPbotColor_ATIME = 0x81
+const TPbotColor_CONTROL = 0x8F
+const TPbotColor_STATUS = 0x93
+const TPbotColor_CDATAL = 0x94
+const TPbotColor_CDATAH = 0x95
+const TPbotColor_RDATAL = 0x96
+const TPbotColor_RDATAH = 0x97
+const TPbotColor_GDATAL = 0x98
+const TPbotColor_GDATAH = 0x99
+const TPbotColor_BDATAL = 0x9A
+const TPbotColor_BDATAH = 0x9B
+const TPbotColor_GCONF4 = 0xAB
+const TPbotColor_AICLEAR = 0xE7
+let TPbotColor_init = false
+
 /**
  * The intelligent programming car produced by ELECFREAKS Co.ltd
  */
 //% weight=0 color=#32b9b9 icon="\uf1b9"
 //% block="TPBot" 
-namespace TPBot {
-    const TPBotAdd = 0X10
-    let Buff = pins.createBuffer(4);
-    let _initEvents = true
-    /**
-    * List of driving directions
-    */
-    export enum DriveDirection {
-        //% block="Forward"
-        Forward = 0,
-        //% block="Backward"
-        Backward = 1,
-        //% block="Left"
-        Left = 2,
-        //% block="Right"
-        Right = 3
-    }
-    /**
-    * Status List of Tracking Modules
-    */
-    export enum TrackingState {
-        //% block="● ●" enumval=0
-        L_R_line,
-
-        //% block="◌ ●" enumval=1
-        L_unline_R_line,
-
-        //% block="● ◌" enumval=2
-        L_line_R_unline,
-
-        //% block="◌ ◌" enumval=3
-        L_R_unline
-    }
-    /**
-    * Unit of Ultrasound Module
-    */
-    export enum SonarUnit {
-        //% block="cm"
-        Centimeters,
-        //% block="inches"
-        Inches
-    }
-    /**
-    * Ultrasonic judgment
-    */
-    export enum Sonarjudge {
-        //% block="<"
-        Less,
-        //% block=">"
-        Greater
-    }
-    /**
-    * Select the servo on the S1 or S2
-    */
-    export enum ServoList {
-        //% block="S1"
-        S1 = 0,
-        //% block="S2"
-        S2 = 1,
-        //% block="S3"
-        S3 = 2,
-        //% block="S4"
-        S4 = 3
-    }
-    /**
-    * Line Sensor states  
-    */
-    export enum LineState{
-        //% block="Black" enumval=0
-        Black,
-        //% block="White"enumval=1
-        White
-    }
-    /**
-    * Line Sensor Side
-    */
-    export enum LineSide{
-        //% block="Left" enumval=0
-        Left,
-        //% block="Right" enumval=1
-        Right
-    }
-    /**
-     * Line Sensor events  
-     */
-    export enum MbEvents {
-        //% block="Black"
-        Black = DAL.MICROBIT_PIN_EVT_FALL,
-        //% block="White"
-        White = DAL.MICROBIT_PIN_EVT_RISE
-    }
-    /**
-     * Pins used to generate events
-     */
-    export enum MbPins {
-        //% block="Left"
-        Left = DAL.MICROBIT_ID_IO_P13,
-        //% block="Right"
-        Right = DAL.MICROBIT_ID_IO_P14
-    }
-    export enum MelodyCMDList {
-        //% block="Play"
-        Play = 0x03,
-        //% block="Stop"
-        Stop = 0x16
-
-    }
-    export enum MelodyList {
-        //% block="Happy"
-        Happy = 0x01
-
-    }
-    /////////////////////////color/////////////////////////
-    export enum TPBotColorList {
-        //% block="Red"
-        red,
-        //% block="Green"
-        green,
-        //% block="Blue"
-        blue,
-        //% block="Cyan"
-        cyan,
-        //% block="Magenta"
-        magenta,
-        //% block="Yellow"
-        yellow,
-        //% block="White"
-        white
-    }
-
-    /**
-    * Set the steering gear to 180 or 360
-    */
-    export enum ServoTypeList {
-        //% block="180°"
-        S180 = 0,
-        //% block="360°"
-        S360 = 1
-    }
-    
-    const TPbotColor_ADDR = 0x39
-    const TPbotColor_ENABLE = 0x80
-    const TPbotColor_ATIME = 0x81
-    const TPbotColor_CONTROL = 0x8F
-    const TPbotColor_STATUS = 0x93
-    const TPbotColor_CDATAL = 0x94
-    const TPbotColor_CDATAH = 0x95
-    const TPbotColor_RDATAL = 0x96
-    const TPbotColor_RDATAH = 0x97
-    const TPbotColor_GDATAL = 0x98
-    const TPbotColor_GDATAH = 0x99
-    const TPbotColor_BDATAL = 0x9A
-    const TPbotColor_BDATAH = 0x9B
-    const TPbotColor_GCONF4 = 0xAB
-    const TPbotColor_AICLEAR = 0xE7
-    let TPbotColor_init = false
-    
-
-    function TPColor_write(addr: number, reg: number, value: number) {
-        let buf = pins.createBuffer(2)
-        buf[0] = reg
-        buf[1] = value
-        pins.i2cWriteBuffer(addr, buf)
-    }
-    function TPColor_read(addr: number, reg: number) {
-        pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
-        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
-        return val;
-    }
-    function rgbtohsl(color_r: number, color_g: number, color_b: number): number {
-        let Hue = 0
-        // normalizes red-green-blue values  把RGB值转成【0，1】中数值。
-        let R = color_r * 100 / 255;   //由于H25不支持浮点运算，放大100倍在计算，下面的运算也放大100倍
-        let G = color_g * 100 / 255;
-        let B = color_b * 100 / 255;
-
-        let maxVal = Math.max(R, Math.max(G, B))//找出R,G和B中的最大值
-        let minVal = Math.min(R, Math.min(G, B)) //找出R,G和B中的最小值
-
-        let Delta = maxVal - minVal;  //△ = Max - Min
-
-        /***********   计算Hue  **********/
-        if (Delta < 0) {
-            Hue = 0;
-        }
-        else if (maxVal == R && G >= B) //最大值为红色
-        {
-            Hue = (60 * ((G - B) * 100 / Delta)) / 100;  //放大100倍
-        }
-        else if (maxVal == R && G < B) {
-            Hue = (60 * ((G - B) * 100 / Delta) + 360 * 100) / 100;
-        }
-        else if (maxVal == G) //最大值为绿色
-        {
-            Hue = (60 * ((B - R) * 100 / Delta) + 120 * 100) / 100;
-        }
-        else if (maxVal == B) {
-            Hue = (60 * ((R - G) * 100 / Delta) + 240 * 100) / 100;
-        }
-        return Hue
-    }
-    function InitTPBotColor(): void {
-        TPColor_write(TPbotColor_ADDR, TPbotColor_ATIME, 252) // default inte time 4x2.78ms
-        TPColor_write(TPbotColor_ADDR, TPbotColor_CONTROL, 0x03) // todo: make gain adjustable
-        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, 0x00) // put everything off
-        TPColor_write(TPbotColor_ADDR, TPbotColor_GCONF4, 0x00) // disable gesture mode
-        TPColor_write(TPbotColor_ADDR, TPbotColor_AICLEAR, 0x00) // clear all interrupt
-        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, 0x01) // clear all interrupt
-        TPbotColor_init = true
-    }
-    function TPbotColorMode(): void {
-        let tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_ENABLE) | 0x2;
-        TPColor_write(TPbotColor_ADDR, TPbotColor_ENABLE, tmp);
-    }
+namespace TPBot { 
 
     /**
      * Set the speed of left and right wheels. 
@@ -228,38 +171,11 @@ namespace TPBot {
     //% lspeed.min=-100 lspeed.max=100
     //% rspeed.min=-100 rspeed.max=100
     export function setWheels(lspeed: number = 50, rspeed: number = 50): void {
-        if (lspeed > 100) {
-            lspeed = 100;
-        } else if (lspeed < -100) {
-            lspeed = -100;
+        if (readHardVersion() == 2) {
+            //TODO TPBotV1.setWheels(lspeed, rspeed);
+        } else {
+            TPBotV1.setWheels(lspeed, rspeed);
         }
-        if (rspeed > 100) {
-            rspeed = 100;
-        } else if (rspeed < -100) {
-            rspeed = -100;
-        }
-        Buff[0] = 0x01;    //控制位 0x01电机
-        Buff[1] = lspeed;
-        Buff[2] = rspeed;
-        Buff[3] = 0x00;        //正反转加权值
-        if (lspeed < 0 && rspeed < 0) {
-            Buff[1] = lspeed * -1;
-            Buff[2] = rspeed * -1;
-            Buff[3] = 0x03;          //正反转加权值
-        }
-        else {
-            if (lspeed < 0) {
-                Buff[1] = lspeed * -1;
-                Buff[2] = rspeed;
-                Buff[3] = 0x01;
-            }
-            if (rspeed < 0) {
-                Buff[1] = lspeed;
-                Buff[2] = rspeed * -1;
-                Buff[3] = 0x02;
-            }
-        }
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
     /**
     * Setting the direction and time of travel.
@@ -271,25 +187,10 @@ namespace TPBot {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
-        if (direc == 0) {
-            setWheels(speed, speed)
-            basic.pause(time * 1000)
-            stopCar()
-        }
-        if (direc == 1) {
-            setWheels(-speed, -speed)
-            basic.pause(time * 1000)
-            stopCar()
-        }
-        if (direc == 2) {
-            setWheels(-speed, speed)
-            basic.pause(time * 1000)
-            stopCar()
-        }
-        if (direc == 3) {
-            setWheels(speed, -speed)
-            basic.pause(time * 1000)
-            stopCar()
+        if (readHardVersion() == 2) {
+            TPBotV1.setTravelTime(direc, speed,time);
+        } else {
+            TPBotV1.setTravelTime(direc, speed,time);
         }
     }
     /**
@@ -614,114 +515,27 @@ namespace TPBot {
         Buff[3] = 0;
         pins.i2cWriteBuffer(TPBotAdd, Buff);
     }
- /*
 
-    //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
-    //% subcategory=EDU
-    export function TPBotReadColor(): number {
-        Buff[0] = 0x31;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
-        if (TPbotColor_init == false) {
-            InitTPBotColor()
-            TPbotColorMode()
+    let version = -1;
+    export function readHardVersion(): number {
+        if (version == -1) {
+            
+            let i2cBuffer = pins.createBuffer(7);
+            i2cBuffer[0] = 0x99;
+            i2cBuffer[1] = 0x15;
+            i2cBuffer[2] = 0x01;
+            i2cBuffer[3] = 0x00;
+            i2cBuffer[4] = 0x00;
+            i2cBuffer[5] = 0x00;
+            i2cBuffer[6] = 0x88;
+            pins.i2cWriteBuffer(0x10, i2cBuffer)
+            //cutebotProV2.i2cCommandSend(0xA0, [0x00])
+            version = pins.i2cReadNumber(0x10, NumberFormat.UInt8LE, false);
+            if (version != 1) {
+                version = 2;
+            }
         }
-        let tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_STATUS) & 0x1;
-        while (!tmp) {
-            basic.pause(5);
-            tmp = TPColor_read(TPbotColor_ADDR, TPbotColor_STATUS) & 0x1;
-        }
-        let c = TPColor_read(TPbotColor_ADDR, TPbotColor_CDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_CDATAH) * 256;
-        let r = TPColor_read(TPbotColor_ADDR, TPbotColor_RDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_RDATAH) * 256;
-        let g = TPColor_read(TPbotColor_ADDR, TPbotColor_GDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_GDATAH) * 256;
-        let b = TPColor_read(TPbotColor_ADDR, TPbotColor_BDATAL) + TPColor_read(TPbotColor_ADDR, TPbotColor_BDATAH) * 256;
-        // map to rgb based on clear channel
-        let avg = c / 3;
-        r = r * 255 / avg;
-        g = g * 255 / avg;
-        b = b * 255 / avg;
-        //let hue = rgb2hue(r, g, b);
-        let hue = rgbtohsl(r, g, b)
-        return hue
+        return version;
+        // return 2;
     }
-    //% block="TPbot bottom Color sensor detects %color"
-    //% subcategory=EDU
-    //% color.fieldEditor="gridpicker" color.fieldOptions.columns=3
-    export function TPBotCheckColor(color: TPBotColorList): boolean {
-        let hue = TPBotReadColor()
-        switch (color) {
-            case TPBotColorList.red:
-                if (hue > 330 || hue < 20) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.green:
-                if (hue > 110 && 150 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.blue:
-                if (hue > 200 && 270 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.cyan:
-                if (hue > 160 && 180 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.magenta:
-                if (hue > 260 && 330 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.yellow:
-                if (hue > 30 && 90 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-            case TPBotColorList.white:
-                if (hue >= 180 && 200 > hue) {
-                    return true
-                }
-                else {
-                    return false
-                }
-                break
-        }
-    }
-
-    //% block="TPbot %CMD Melody %Melody"
-    //% subcategory=EDU
-    //% CMD.fieldEditor="gridpicker" CMD.fieldOptions.columns=2
-    //% Melody.fieldEditor="gridpicker" Melody.fieldOptions.columns=2
-    export function TPBotMelody(CMD: MelodyCMDList, Melody: MelodyList): void {
-        Buff[0] = 0x30;
-        Buff[1] = CMD;
-        Buff[2] = 0;
-        Buff[3] = Melody;
-        if(CMD == MelodyCMDList.Stop){
-        Buff[2] = 0;
-        Buff[3] = 0;
-        }
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
-    }
-     */   
 }
