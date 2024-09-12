@@ -253,7 +253,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.sonarReturn(unit, maxCmDistance);
         } else {
-            TPBotV1.sonarReturn(unit, maxCmDistance);
+            return TPBotV1.sonarReturn(unit, maxCmDistance);
         }
     }
     /**
@@ -269,7 +269,7 @@ namespace TPBot {
         if (readHardVersion() == 2) {
             return TPBotV2.sonarJudge(judge, dis);
         } else {
-            TPBotV1.sonarJudge(judge, dis);
+            return TPBotV1.sonarJudge(judge, dis);
         }
     }
     /**
@@ -501,7 +501,6 @@ namespace TPBot {
     export function pidRunBlock(cnt: number): void {
         TPBotV2.pidRunBlock(cnt);
     }
-
 
     /**
      * set the trolley to rotate at a specific Angle
