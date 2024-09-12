@@ -39,5 +39,6 @@
   "TPBot.trackLine|block": "ラインセンサーが %state",
   "TPBot.trackSide|block": "%side 側のラインセンサーの色が %state",
   "TPBot|block": "TPBot",
-  "{id:category}TPBot": "TPBot"
+  "{id:category}TPBot": "TPBot",
+  "{id:subcategory}PID": "PID"
 }

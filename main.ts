@@ -1,6 +1,3 @@
-const TPBotAdd = 0X10
-let Buff = pins.createBuffer(4);
-let _initEvents = true
 /**
 * List of driving directions
 */
@@ -136,6 +133,10 @@ export enum ServoTypeList {
     //% block="360°"
     S360 = 1
 }
+
+const TPBotAdd = 0X10
+let Buff = pins.createBuffer(4);
+let _initEvents = true
 
 const TPbotColor_ADDR = 0x39
 const TPbotColor_ENABLE = 0x80
@@ -407,26 +408,159 @@ namespace TPBot {
         }
     }
 
+    /***********************************************************************************************
+     * PID控制
+     ***********************************************************************************************/
+
+    export enum SpeedUnit {
+        //%block="cm/s"
+        Cm_s,
+        //%block="inch/s"
+        Inch_s
+    }
+    export enum Direction {
+        //%block="Forward"
+        Forward,
+        //%block="Backward"
+        Backward
+    }
+    export enum DistanceUnit {
+        //%block="cm"
+        Cm,
+        //%block="inch"
+        Inch
+    }
+    export enum Wheel {
+        //%block="WheelLeft"
+        WheelLeft = 0,
+        //%block="WheelRight"
+        WheelRight = 1,
+        //%block="WheelALL"
+        WheelALL = 2
+    }
+    export enum AngleUnits {
+        //%block="Angle"
+        Angle,
+        //%block="Circle"
+        Circle
+    }
+    export enum TurnUnit {
+        //%block="Leftsteering"
+        Leftsteering = 0,
+        //%block="Rightsteering"
+        Rightsteering = 1,
+        //%block="Stay_Leftsteering"
+        Stay_Leftsteering = 2,
+        //%block="Stay_Rightsteering"
+        Stay_Rightsteering = 3
+    }
+    export enum TurnAngleUnit {
+        //% block="45°"
+        T45 = 45,
+        //% block="90°"
+        T90 = 90,
+        //% block="135°"
+        T135 = 135,
+        //% block="180°"
+        T180 = 180
+    }
+
+    //
+    /**
+     * control the car to travel at a specific speed (speed.min=20cm/s speed.max=50cm/s)
+     * @lspeed set the lspeed
+     * @rspeed set the rspeed
+     * @unit set the SpeedUnit
+     */
+    //% subcategory="PID"
+    //% block="set left wheel speed %lspeed, right wheel speed %rspeed %unit"
+    //% weight=210
+    export function pidSpeedControl(lspeed: number, rspeed: number, unit: SpeedUnit): void {
+        TPBotV2.pidSpeedControl(lspeed, rspeed, unit);
+    }
+
+    /**
+     * set the car to travel a specific distance(distance.max=6000cm, distance.min=0cm)
+     * @Direction set the direction eg: Direction.Forward
+     * @distance set the distance eg: 0
+     * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+     */
+    //% subcategory="PID"
+    //% weight=200
+    //% block="go %Direction %distance %DistanceUnit"
+    export function pidRunDistance(direction: Direction, distance: number, unit: DistanceUnit): void {
+        TPBotV2.pidRunDistance(direction, distance, unit);
+    }
+
+    /**
+     * Select the wheel and set the Angle or number of turns you want to turn
+     * @Wheel Select wheel eg: Wheel.WheelLeft
+     * @angle set the angle or number of turns eg: 0
+     * @angleUnits set the angle unit eg: AngleUnit.angle
+     */
+    //% subcategory="PID"
+    //% weight=200
+    //% block="set %Wheel rotation %angle %AngleUnits"
+    export function pidRunAngle(wheel: Wheel, angle: number, angleUnits: AngleUnits): void {
+        TPBotV2.pidRunAngle(wheel, angle, angleUnits);
+    }
+
+    /**
+    * set block length
+    * @length set the length of each block eg: 0
+    * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+    */
+    //% subcategory="PID"
+    //% weight=180
+    //% block="set length of the squares as %length %DistanceUnit"
+    export function pidBlockSet(length: number, distanceUnit: DistanceUnit): void {
+        TPBotV2.pidBlockSet(length, distanceUnit);
+    }
+
+    /**
+    * run a specific number of block
+    * @cnt set the number of block eg: 0
+    */
+    //% subcategory="PID"
+    //% weight=170
+    //% block="go forward %cnt squares"
+    export function pidRunBlock(cnt: number): void {
+        TPBotV2.pidRunBlock(cnt);
+    }
+
+
+    /**
+     * set the trolley to rotate at a specific Angle
+     * @TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
+     * @TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
+     */
+    //% subcategory="PID"
+    //% weight=190
+    //% block="set car %TurnUnit for angle %TurnAngleUnit"
+    export function pidRunSteering(turn: TurnUnit, angle: TurnAngleUnit): void {
+        TPBotV2.pidRunSteering(turn, angle);
+    }
+
     let version = -1;
     export function readHardVersion(): number {
-        if (version == -1) {
+        // if (version == -1) {
             
-            let i2cBuffer = pins.createBuffer(7);
-            i2cBuffer[0] = 0x99;
-            i2cBuffer[1] = 0x15;
-            i2cBuffer[2] = 0x01;
-            i2cBuffer[3] = 0x00;
-            i2cBuffer[4] = 0x00;
-            i2cBuffer[5] = 0x00;
-            i2cBuffer[6] = 0x88;
-            pins.i2cWriteBuffer(0x10, i2cBuffer)
-            //cutebotProV2.i2cCommandSend(0xA0, [0x00])
-            version = pins.i2cReadNumber(0x10, NumberFormat.UInt8LE, false);
-            if (version != 1) {
-                version = 2;
-            }
-        }
-        return version;
-        // return 2;
+        //     let i2cBuffer = pins.createBuffer(7);
+        //     i2cBuffer[0] = 0x99;
+        //     i2cBuffer[1] = 0x15;
+        //     i2cBuffer[2] = 0x01;
+        //     i2cBuffer[3] = 0x00;
+        //     i2cBuffer[4] = 0x00;
+        //     i2cBuffer[5] = 0x00;
+        //     i2cBuffer[6] = 0x88;
+        //     pins.i2cWriteBuffer(0x10, i2cBuffer)
+        //     //cutebotProV2.i2cCommandSend(0xA0, [0x00])
+        //     version = pins.i2cReadNumber(0x10, NumberFormat.UInt8LE, false);
+        //     if (version != 1) {
+        //         version = 2;
+        //     }
+        // }
+        // return version;
+        return 2;
     }
 }

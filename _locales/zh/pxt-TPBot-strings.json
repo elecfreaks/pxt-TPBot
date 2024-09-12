@@ -39,5 +39,6 @@
   "TPBot.trackLine|block": "巡线传感器的状态为 %state",
   "TPBot.trackSide|block": "%side 巡线传感器检测到 %state",
   "TPBot|block": "天蓬",
-  "{id:category}TPBot": "天蓬"
+  "{id:category}TPBot": "天蓬",
+  "{id:subcategory}PID": "PID控制"
 }
