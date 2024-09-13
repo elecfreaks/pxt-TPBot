@@ -65,5 +65,5 @@
   "TPBot.pidRunBlock|block": "设置小车向前行驶 %cnt 方格",
   "TPBot|block": "天蓬",
   "{id:category}TPBot": "天蓬",
-  "{id:subcategory}PID": "PID控制"
+  "{id:subcategory}PID": "PID控制(教育版)"
 }
