@@ -329,11 +329,6 @@ namespace TPBotV1 {
      * @param angle angle of servo
      */
     /*
-    //% weight=15
-    //% block="Set 180° servo %servo angle to %angle °"
-    //% angle.shadow="protractorPicker"
-    //% servo.fieldEditor="gridpicker"
-    //% servo.fieldOptions.columns=1
     export function setServo180(servo: ServoList, angle: number = 180): void {
         switch (servo) {
             case 0:
