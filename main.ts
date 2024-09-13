@@ -442,9 +442,9 @@ namespace TPBot {
     //
     /**
      * control the car to travel at a specific speed (speed.min=20cm/s speed.max=50cm/s)
-     * @lspeed set the lspeed
-     * @rspeed set the rspeed
-     * @unit set the SpeedUnit
+     * @param lspeed set the lspeed
+     * @param rspeed set the rspeed
+     * @param unit set the SpeedUnit
      */
     //% subcategory="PID"
     //% block="set left wheel speed %lspeed, right wheel speed %rspeed %unit"
@@ -455,9 +455,9 @@ namespace TPBot {
 
     /**
      * set the car to travel a specific distance(distance.max=6000cm, distance.min=0cm)
-     * @Direction set the direction eg: Direction.Forward
-     * @distance set the distance eg: 0
-     * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+     * @param Direction set the direction eg: Direction.Forward
+     * @param distance set the distance eg: 0
+     * @param DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
      */
     //% subcategory="PID"
     //% weight=200
@@ -468,9 +468,9 @@ namespace TPBot {
 
     /**
      * Select the wheel and set the Angle or number of turns you want to turn
-     * @Wheel Select wheel eg: Wheel.WheelLeft
-     * @angle set the angle or number of turns eg: 0
-     * @angleUnits set the angle unit eg: AngleUnit.angle
+     * @param Wheel Select wheel eg: Wheel.WheelLeft
+     * @param angle set the angle or number of turns eg: 0
+     * @param angleUnits set the angle unit eg: AngleUnit.angle
      */
     //% subcategory="PID"
     //% weight=200
@@ -481,8 +481,8 @@ namespace TPBot {
 
     /**
     * set block length
-    * @length set the length of each block eg: 0
-    * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+    * @param length set the length of each block eg: 0
+    * @param DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
     */
     //% subcategory="PID"
     //% weight=180
@@ -493,7 +493,7 @@ namespace TPBot {
 
     /**
     * run a specific number of block
-    * @cnt set the number of block eg: 0
+    * @param cnt set the number of block eg: 0
     */
     //% subcategory="PID"
     //% weight=170
@@ -504,8 +504,8 @@ namespace TPBot {
 
     /**
      * set the trolley to rotate at a specific Angle
-     * @TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
-     * @TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
+     * @param TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
+     * @param TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
      */
     //% subcategory="PID"
     //% weight=190
@@ -515,7 +515,7 @@ namespace TPBot {
     }
 
     let version = -1;
-    export function readHardVersion(): number {
+    function readHardVersion(): number {
         // if (version == -1) {
 
         //     let i2cBuffer = pins.createBuffer(7);
