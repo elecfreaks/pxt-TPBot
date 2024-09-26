@@ -1,3 +1,133 @@
+enum DriveDirection {
+    //% block="Forward"
+    Forward = 0,
+    //% block="Backward"
+    Backward = 1,
+    //% block="Left"
+    Left = 2,
+    //% block="Right"
+    Right = 3
+}
+
+enum TrackingState {
+    //% block="● ●" enumval=0
+    L_R_line,
+
+    //% block="◌ ●" enumval=1
+    L_unline_R_line,
+
+    //% block="● ◌" enumval=2
+    L_line_R_unline,
+
+    //% block="◌ ◌" enumval=3
+    L_R_unline
+}
+
+enum SonarUnit {
+    //% block="cm"
+    Centimeters,
+    //% block="inches"
+    Inches
+}
+
+enum Sonarjudge {
+    //% block="<"
+    Less,
+    //% block=">"
+    Greater
+}
+enum ServoList {
+    //% block="S1"
+    S1 = 0,
+    //% block="S2"
+    S2 = 1,
+    //% block="S3"
+    S3 = 2,
+    //% block="S4"
+    S4 = 3
+}
+enum LineState {
+    //% block="Black" enumval=0
+    Black,
+    //% block="White"enumval=1
+    White
+}
+enum LineSide {
+    //% block="Left" enumval=0
+    Left,
+    //% block="Right" enumval=1
+    Right
+}
+enum MbEvents {
+    //% block="Black"
+    Black = DAL.MICROBIT_PIN_EVT_FALL,
+    //% block="White"
+    White = DAL.MICROBIT_PIN_EVT_RISE
+}
+enum MbPins {
+    //% block="Left"
+    Left = DAL.MICROBIT_ID_IO_P13,
+    //% block="Right"
+    Right = DAL.MICROBIT_ID_IO_P14
+}
+enum MelodyCMDList {
+    //% block="Play"
+    Play = 0x03,
+    //% block="Stop"
+    Stop = 0x16
+
+}
+enum MelodyList {
+    //% block="Happy"
+    Happy = 0x01
+
+}
+/////////////////////////color/////////////////////////
+enum TPBotColorList {
+    //% block="Red"
+    red,
+    //% block="Green"
+    green,
+    //% block="Blue"
+    blue,
+    //% block="Cyan"
+    cyan,
+    //% block="Magenta"
+    magenta,
+    //% block="Yellow"
+    yellow,
+    //% block="White"
+    white
+}
+
+enum ServoTypeList {
+    //% block="180°"
+    S180 = 0,
+    //% block="360°"
+    S360 = 1
+}
+
+const TPBotAdd = 0X10
+let Buff = pins.createBuffer(4);
+let _initEvents = true
+
+const TPbotColor_ADDR = 0x39
+const TPbotColor_ENABLE = 0x80
+const TPbotColor_ATIME = 0x81
+const TPbotColor_CONTROL = 0x8F
+const TPbotColor_STATUS = 0x93
+const TPbotColor_CDATAL = 0x94
+const TPbotColor_CDATAH = 0x95
+const TPbotColor_RDATAL = 0x96
+const TPbotColor_RDATAH = 0x97
+const TPbotColor_GDATAL = 0x98
+const TPbotColor_GDATAH = 0x99
+const TPbotColor_BDATAL = 0x9A
+const TPbotColor_BDATAH = 0x9B
+const TPbotColor_GCONF4 = 0xAB
+const TPbotColor_AICLEAR = 0xE7
+let TPbotColor_init = false
+
 /**
  * The intelligent programming car produced by ELECFREAKS Co.ltd
  */
@@ -5,135 +135,7 @@
 //% block="TPBot" 
 namespace TPBot {
 
-    enum DriveDirection {
-        //% block="Forward"
-        Forward = 0,
-        //% block="Backward"
-        Backward = 1,
-        //% block="Left"
-        Left = 2,
-        //% block="Right"
-        Right = 3
-    }
     
-    enum TrackingState {
-        //% block="● ●" enumval=0
-        L_R_line,
-    
-        //% block="◌ ●" enumval=1
-        L_unline_R_line,
-    
-        //% block="● ◌" enumval=2
-        L_line_R_unline,
-    
-        //% block="◌ ◌" enumval=3
-        L_R_unline
-    }
-    
-    enum SonarUnit {
-        //% block="cm"
-        Centimeters,
-        //% block="inches"
-        Inches
-    }
-    
-    enum Sonarjudge {
-        //% block="<"
-        Less,
-        //% block=">"
-        Greater
-    }
-    enum ServoList {
-        //% block="S1"
-        S1 = 0,
-        //% block="S2"
-        S2 = 1,
-        //% block="S3"
-        S3 = 2,
-        //% block="S4"
-        S4 = 3
-    }
-    enum LineState {
-        //% block="Black" enumval=0
-        Black,
-        //% block="White"enumval=1
-        White
-    }
-    enum LineSide {
-        //% block="Left" enumval=0
-        Left,
-        //% block="Right" enumval=1
-        Right
-    }
-    enum MbEvents {
-        //% block="Black"
-        Black = DAL.MICROBIT_PIN_EVT_FALL,
-        //% block="White"
-        White = DAL.MICROBIT_PIN_EVT_RISE
-    }
-    enum MbPins {
-        //% block="Left"
-        Left = DAL.MICROBIT_ID_IO_P13,
-        //% block="Right"
-        Right = DAL.MICROBIT_ID_IO_P14
-    }
-    enum MelodyCMDList {
-        //% block="Play"
-        Play = 0x03,
-        //% block="Stop"
-        Stop = 0x16
-    
-    }
-    enum MelodyList {
-        //% block="Happy"
-        Happy = 0x01
-    
-    }
-    /////////////////////////color/////////////////////////
-    enum TPBotColorList {
-        //% block="Red"
-        red,
-        //% block="Green"
-        green,
-        //% block="Blue"
-        blue,
-        //% block="Cyan"
-        cyan,
-        //% block="Magenta"
-        magenta,
-        //% block="Yellow"
-        yellow,
-        //% block="White"
-        white
-    }
-    
-    enum ServoTypeList {
-        //% block="180°"
-        S180 = 0,
-        //% block="360°"
-        S360 = 1
-    }
-    
-    const TPBotAdd = 0X10
-    let Buff = pins.createBuffer(4);
-    let _initEvents = true
-    
-    const TPbotColor_ADDR = 0x39
-    const TPbotColor_ENABLE = 0x80
-    const TPbotColor_ATIME = 0x81
-    const TPbotColor_CONTROL = 0x8F
-    const TPbotColor_STATUS = 0x93
-    const TPbotColor_CDATAL = 0x94
-    const TPbotColor_CDATAH = 0x95
-    const TPbotColor_RDATAL = 0x96
-    const TPbotColor_RDATAH = 0x97
-    const TPbotColor_GDATAL = 0x98
-    const TPbotColor_GDATAH = 0x99
-    const TPbotColor_BDATAL = 0x9A
-    const TPbotColor_BDATAH = 0x9B
-    const TPbotColor_GCONF4 = 0xAB
-    const TPbotColor_AICLEAR = 0xE7
-    let TPbotColor_init = false
 
     /**
      * Set the speed of left and right wheels. 
