@@ -633,4 +633,13 @@ namespace TPBotV2 {
         i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
         basic.pause(angle * 2 + 200)
     }
+
+    let version = -1;
+    export function readHardVersion(): number {
+        if (version == -1) {
+            i2cCommandSend(0xA0, [0]);
+            version = pins.i2cReadNumber(tpbotAdd, NumberFormat.UInt8LE, false)
+        }
+        return version;
+    }
 }

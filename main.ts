@@ -1,4 +1,3 @@
-
 enum DriveDirection {
     //% block="Forward"
     Forward = 0,
@@ -509,26 +508,7 @@ namespace TPBot {
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    let version = -1;
     function readHardVersion(): number {
-        // if (version == -1) {
-
-        //     let i2cBuffer = pins.createBuffer(7);
-        //     i2cBuffer[0] = 0x99;
-        //     i2cBuffer[1] = 0x15;
-        //     i2cBuffer[2] = 0x01;
-        //     i2cBuffer[3] = 0x00;
-        //     i2cBuffer[4] = 0x00;
-        //     i2cBuffer[5] = 0x00;
-        //     i2cBuffer[6] = 0x88;
-        //     pins.i2cWriteBuffer(0x10, i2cBuffer)
-        //     //cutebotProV2.i2cCommandSend(0xA0, [0x00])
-        //     version = pins.i2cReadNumber(0x10, NumberFormat.UInt8LE, false);
-        //     if (version != 1) {
-        //         version = 2;
-        //     }
-        // }
-        // return version;
-        return 2;
+        return TPBotV2.readHardVersion();
     }
 }
