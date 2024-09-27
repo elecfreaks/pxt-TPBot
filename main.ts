@@ -4,7 +4,7 @@
 //% weight=0 color=#32b9b9 icon="\uf1b9"
 //% block="TPBot" 
 namespace TPBot {
-enum DriveDirection {
+export enum DriveDirection {
     //% block="Forward"
     Forward = 0,
     //% block="Backward"
@@ -15,7 +15,7 @@ enum DriveDirection {
     Right = 3
 }
 
-enum TrackingState {
+export export enum TrackingState {
     //% block="● ●" enumval=0
     L_R_line,
 
@@ -29,20 +29,20 @@ enum TrackingState {
     L_R_unline
 }
 
-enum SonarUnit {
+export enum SonarUnit {
     //% block="cm"
     Centimeters,
     //% block="inches"
     Inches
 }
 
-enum Sonarjudge {
+export enum Sonarjudge {
     //% block="<"
     Less,
     //% block=">"
     Greater
 }
-enum ServoList {
+export enum ServoList {
     //% block="S1"
     S1 = 0,
     //% block="S2"
@@ -52,44 +52,44 @@ enum ServoList {
     //% block="S4"
     S4 = 3
 }
-enum LineState {
+export enum LineState {
     //% block="Black" enumval=0
     Black,
     //% block="White"enumval=1
     White
 }
-enum LineSide {
+export enum LineSide {
     //% block="Left" enumval=0
     Left,
     //% block="Right" enumval=1
     Right
 }
-enum MbEvents {
+export enum MbEvents {
     //% block="Black"
     Black = DAL.MICROBIT_PIN_EVT_FALL,
     //% block="White"
     White = DAL.MICROBIT_PIN_EVT_RISE
 }
-enum MbPins {
+export enum MbPins {
     //% block="Left"
     Left = DAL.MICROBIT_ID_IO_P13,
     //% block="Right"
     Right = DAL.MICROBIT_ID_IO_P14
 }
-enum MelodyCMDList {
+export enum MelodyCMDList {
     //% block="Play"
     Play = 0x03,
     //% block="Stop"
     Stop = 0x16
 
 }
-enum MelodyList {
+export enum MelodyList {
     //% block="Happy"
     Happy = 0x01
 
 }
 /////////////////////////color/////////////////////////
-enum TPBotColorList {
+export enum TPBotColorList {
     //% block="Red"
     red,
     //% block="Green"
@@ -106,7 +106,7 @@ enum TPBotColorList {
     white
 }
 
-enum ServoTypeList {
+export enum ServoTypeList {
     //% block="180°"
     S180 = 0,
     //% block="360°"
