@@ -481,7 +481,7 @@ let TPbotColor_init = false
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    function readHardVersion(): number {
+    export function readHardVersion(): number {
         return TPBotV2.readHardVersion();
     }
 }
