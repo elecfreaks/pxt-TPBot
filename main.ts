@@ -340,7 +340,7 @@ namespace TPBot {
      * @param angle angle of servo
      */
     //% weight=15
-    //% block="Set %ServoTypeList servo %servo angle to %angle °AAA"
+    //% block="Set %ServoTypeList servo %servo angle to %angle °"
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
         if (readHardVersion() == 2) {
             TPBotV2.setServo(servoType, servo + 1, angle);
