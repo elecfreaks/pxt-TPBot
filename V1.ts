@@ -419,8 +419,8 @@ namespace TPBotV1 {
     }
  /*
 
-    //% blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
-    //% subcategory=EDU
+    // blockId=TPbotColor_readcolor block="TPbot bottom Color sensor HUE(0~360)"
+    // subcategory=EDU
     export function TPBotReadColor(): number {
         Buff[0] = 0x31;
         pins.i2cWriteBuffer(TPBotAdd, Buff);
@@ -446,9 +446,9 @@ namespace TPBotV1 {
         let hue = rgbtohsl(r, g, b)
         return hue
     }
-    //% block="TPbot bottom Color sensor detects %color"
-    //% subcategory=EDU
-    //% color.fieldEditor="gridpicker" color.fieldOptions.columns=3
+    // block="TPbot bottom Color sensor detects %color"
+    // subcategory=EDU
+    // color.fieldEditor="gridpicker" color.fieldOptions.columns=3
     export function TPBotCheckColor(color: TPBotColorList): boolean {
         let hue = TPBotReadColor()
         switch (color) {
@@ -511,10 +511,10 @@ namespace TPBotV1 {
         }
     }
 
-    //% block="TPbot %CMD Melody %Melody"
-    //% subcategory=EDU
-    //% CMD.fieldEditor="gridpicker" CMD.fieldOptions.columns=2
-    //% Melody.fieldEditor="gridpicker" Melody.fieldOptions.columns=2
+    // block="TPbot %CMD Melody %Melody"
+    // subcategory=EDU
+    // CMD.fieldEditor="gridpicker" CMD.fieldOptions.columns=2
+    // Melody.fieldEditor="gridpicker" Melody.fieldOptions.columns=2
     export function TPBotMelody(CMD: MelodyCMDList, Melody: MelodyList): void {
         Buff[0] = 0x30;
         Buff[1] = CMD;

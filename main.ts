@@ -134,9 +134,6 @@ let TPbotColor_init = false
 //% weight=0 color=#32b9b9 icon="\uf1b9"
 //% block="TPBot" 
 namespace TPBot {
-
-    
-
     /**
      * Set the speed of left and right wheels. 
      * @param lspeed Left wheel speed
