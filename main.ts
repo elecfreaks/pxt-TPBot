@@ -317,33 +317,6 @@ namespace TPBot {
     }
 
     /**
-     * Set the angle of servo. 
-     * @param servo ServoList
-     * @param angle angle of servo
-     */
-    /*
-    export function setServo180(servo: ServoList, angle: number = 180): void {
-        switch (servo) {
-            case 0:
-                Buff[0] = 0x10;
-                break;
-            case 1:
-                Buff[0] = 0x11;
-                break;
-            case 2:
-                Buff[0] = 0x12;
-                break;
-            case 3:
-                Buff[0] = 0x13;
-                break;
-        }
-        Buff[1] = angle;
-        Buff[2] = 0;
-        Buff[3] = 0;
-        pins.i2cWriteBuffer(TPBotAdd, Buff);
-    }
-    */
-    /**
     * Set the speed of servo.
     * @param servo ServoList
     * @param speed speed of servo
@@ -362,11 +335,12 @@ namespace TPBot {
     }
     /**
      * Set the angle of servo. 
+     * @param servoType ServoTypeList
      * @param servo ServoList
      * @param angle angle of servo
      */
     //% weight=15
-    //% block="Set %ServoTypeList servo %servo angle to %angle °"
+    //% block="Set %ServoTypeList servo %servo angle to %angle °AAA"
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
         if (readHardVersion() == 2) {
             TPBotV2.setServo(servoType, servo + 1, angle);
