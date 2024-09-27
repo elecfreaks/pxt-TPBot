@@ -15,7 +15,7 @@ export enum DriveDirection {
     Right = 3
 }
 
-export export enum TrackingState {
+export enum TrackingState {
     //% block="● ●" enumval=0
     L_R_line,
 
