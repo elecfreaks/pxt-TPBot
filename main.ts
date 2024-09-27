@@ -333,6 +333,7 @@ let TPbotColor_init = false
             TPBotV1.setServo360(servo, speed);
         }
     }
+
     /**
      * Set the angle of servo. 
      * @param servoType ServoTypeList
@@ -340,7 +341,9 @@ let TPbotColor_init = false
      * @param angle angle of servo
      */
     //% weight=15
-    //% block="Set %ServoTypeList servo %servo angle to %angle °"
+    //% block="Set %servoType servo %servo angle to %angle °"
+    //% servo.fieldEditor="gridpicker"
+    //% servo.fieldOptions.columns=1
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
         if (readHardVersion() == 2) {
             TPBotV2.setServo(servoType, servo + 1, angle);
@@ -481,7 +484,7 @@ let TPbotColor_init = false
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    export function readHardVersion(): number {
+    function readHardVersion(): number {
         return TPBotV2.readHardVersion();
     }
 }
