@@ -111,28 +111,37 @@ export enum ServoTypeList {
     S180 = 0,
     //% block="360°"
     S360 = 1
+    }
+    
+export enum VersionList {
+    //% block="TPBot"
+    "TPBot" = 0,
+    //% block="TPBot_Pro"
+    "TPBot_Pro" = 1
 }
 
-const TPBotAdd = 0X10
-let Buff = pins.createBuffer(4);
-let _initEvents = true
+    const TPBotAdd = 0X10
+    let Buff = pins.createBuffer(4);
+    let _initEvents = true
 
-const TPbotColor_ADDR = 0x39
-const TPbotColor_ENABLE = 0x80
-const TPbotColor_ATIME = 0x81
-const TPbotColor_CONTROL = 0x8F
-const TPbotColor_STATUS = 0x93
-const TPbotColor_CDATAL = 0x94
-const TPbotColor_CDATAH = 0x95
-const TPbotColor_RDATAL = 0x96
-const TPbotColor_RDATAH = 0x97
-const TPbotColor_GDATAL = 0x98
-const TPbotColor_GDATAH = 0x99
-const TPbotColor_BDATAL = 0x9A
-const TPbotColor_BDATAH = 0x9B
-const TPbotColor_GCONF4 = 0xAB
-const TPbotColor_AICLEAR = 0xE7
-let TPbotColor_init = false
+    const TPbotColor_ADDR = 0x39
+    const TPbotColor_ENABLE = 0x80
+    const TPbotColor_ATIME = 0x81
+    const TPbotColor_CONTROL = 0x8F
+    const TPbotColor_STATUS = 0x93
+    const TPbotColor_CDATAL = 0x94
+    const TPbotColor_CDATAH = 0x95
+    const TPbotColor_RDATAL = 0x96
+    const TPbotColor_RDATAH = 0x97
+    const TPbotColor_GDATAL = 0x98
+    const TPbotColor_GDATAH = 0x99
+    const TPbotColor_BDATAL = 0x9A
+    const TPbotColor_BDATAH = 0x9B
+    const TPbotColor_GCONF4 = 0xAB
+    const TPbotColor_AICLEAR = 0xE7
+    let TPbotColor_init = false
+    
+    let version = 2;
 
     /**
      * Set the speed of left and right wheels. 
@@ -484,7 +493,16 @@ let TPbotColor_init = false
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    function readHardVersion(): number {
-        return TPBotV2.readHardVersion();
+    /**
+     * Select the version to initialize.
+     */
+    //% weight=110
+    //% block="Select the %version to initialize" eg: VersionList.TPBot_Pro
+    export function readHardVersionn(versions:VersionList): void {
+        version = (versions==VersionList.TPBot?1:2);
+    }
+
+    export function readHardVersion(): number {
+        return version;
     }
 }
