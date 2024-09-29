@@ -115,9 +115,9 @@ export enum ServoTypeList {
     
 export enum VersionList {
     //% block="TPBot"
-    "TPBot" = 0,
+    TPBot = "TPBot",
     //% block="TPBot_Pro"
-    "TPBot_Pro" = 1
+    TPBot_Pro = "TPBot_Pro"
 }
 
     const TPBotAdd = 0X10
