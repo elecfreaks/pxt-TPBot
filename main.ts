@@ -153,11 +153,10 @@ export enum VersionList {
     //% lspeed.min=-100 lspeed.max=100
     //% rspeed.min=-100 rspeed.max=100
     export function setWheels(lspeed: number = 50, rspeed: number = 50): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.motorControl(lspeed, rspeed);
-        } else {
+        
             TPBotV1.setWheels(lspeed, rspeed);
-        }
     }
     /**
     * Setting the direction and time of travel.
@@ -169,11 +168,10 @@ export enum VersionList {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.setTravelTime(direc, speed, time);
-        } else {
+        
             TPBotV1.setTravelTime(direc, speed, time);
-        }
     }
     /**
     * Setting the direction and speed of travel.
@@ -185,11 +183,10 @@ export enum VersionList {
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.setTravelSpeed(direc, speed);
-        } else {
-            TPBotV1.setTravelSpeed(direc, speed);
-        }
+        
+            TPBotV1.setTravelSpeed(direc, speed)
     }
     /**
     * Stop the car. 
@@ -197,11 +194,10 @@ export enum VersionList {
     //% weight=80
     //% block="Stop the car immediately"
     export function stopCar(): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.stopCar();
-        } else {
+        
             TPBotV1.stopCar();
-        }
     }
     /**
      * track one side
@@ -213,11 +209,10 @@ export enum VersionList {
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     export function trackSide(side: LineSide, State: LineState): boolean {
-        if (readHardVersion() == 2) {
+        
             return TPBotV2.trackSide(side, State);
-        } else {
-            return TPBotV1.trackSide(side, State);
-        }
+        
+            //return TPBotV1.trackSide(side, State);
     }
     /**
     * Judging the Current Status of Tracking Module.
@@ -228,11 +223,10 @@ export enum VersionList {
     //% state.fieldEditor="gridpicker"
     //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
-        if (readHardVersion() == 2) {
+        
             return TPBotV2.trackLine(state);
-        } else {
-            return TPBotV1.trackLine(state);
-        }
+        
+            //return TPBotV1.trackLine(state);
     }
     /**
     * Runs when line sensor finds or loses.
@@ -242,11 +236,10 @@ export enum VersionList {
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.trackEvent(side, state, handler);
-        } else {
+        
             TPBotV1.trackEvent(side, state, handler);
-        }
     }
     /**
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
@@ -257,11 +250,10 @@ export enum VersionList {
     //% unit.fieldEditor="gridpicker"
     //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
-        if (readHardVersion() == 2) {
+        
             return TPBotV2.sonarReturn(unit, maxCmDistance);
-        } else {
-            return TPBotV1.sonarReturn(unit, maxCmDistance);
-        }
+        
+            //return TPBotV1.sonarReturn(unit, maxCmDistance);
     }
     /**
     * sonar Judge.
@@ -273,11 +265,10 @@ export enum VersionList {
     //% dis.min=1 dis.max=400
     //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
-        if (readHardVersion() == 2) {
+        
             return TPBotV2.sonarJudge(judge, dis);
-        } else {
-            return TPBotV1.sonarJudge(judge, dis);
-        }
+        
+            //return TPBotV1.sonarJudge(judge, dis);
     }
     /**
     * Select a color to Set eye mask lamp.
@@ -286,11 +277,10 @@ export enum VersionList {
     //% weight=30
     //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.headlightColor(color);
-        } else {
+        
             TPBotV1.headlightColor(color);
-        }
     }
 
     /**
@@ -306,11 +296,10 @@ export enum VersionList {
     //% g.min=0 g.max=255
     //% b.min=0 b.max=255
     export function headlightRGB(r: number, g: number, b: number): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.headlightRGB(r, g, b);
-        } else {
+        
             TPBotV1.headlightRGB(r, g, b);
-        }
     }
     /**
     * Turn off the eye mask lamp.
@@ -318,11 +307,10 @@ export enum VersionList {
     //% block="Turn off the headlights"
     //% weight=20
     export function headlightClose(): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.headlightClose();
-        } else {
+        
             TPBotV1.headlightClose();
-        }
     }
 
     /**
@@ -336,11 +324,10 @@ export enum VersionList {
     //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.setServo360(servo + 1, speed);
-        } else {
+        
             TPBotV1.setServo360(servo, speed);
-        }
     }
 
     /**
@@ -354,11 +341,10 @@ export enum VersionList {
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
-        if (readHardVersion() == 2) {
+        
             TPBotV2.setServo(servoType, servo + 1, angle);
-        } else {
+        
             TPBotV1.setServo(servoType, servo, angle);
-        }
     }
 
     /***********************************************************************************************
@@ -496,8 +482,8 @@ export enum VersionList {
     /**
      * Select the version to initialize.
      */
-    //% weight=110
-    //% block="Select the %version to initialize" eg: VersionList.TPBot_Pro
+    //// weight=110
+    //// block="Select the %version to initialize" eg: VersionList.TPBot_Pro
     export function readHardVersionn(versions:VersionList): void {
         version = (versions==VersionList.TPBot?1:2);
     }
