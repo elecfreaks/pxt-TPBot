@@ -235,22 +235,22 @@ namespace TPBotV1 {
         if (direc == 0) {
             setWheels(speed, speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 1) {
             setWheels(-speed, -speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 2) {
             setWheels(-speed, speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 3) {
             setWheels(speed, -speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
     }
     /**

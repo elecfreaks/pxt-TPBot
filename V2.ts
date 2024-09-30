@@ -256,22 +256,22 @@ namespace TPBotV2 {
         if (direc == 0) {
             motorControl(speed, speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 1) {
             motorControl(-speed, -speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 2) {
             motorControl(-speed, speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
         if (direc == 3) {
             motorControl(speed, -speed)
             ////basic.pause(time * 1000)
-            stopCar()
+            ////stopCar()
         }
     }
 
