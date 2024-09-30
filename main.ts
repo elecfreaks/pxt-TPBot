@@ -153,10 +153,8 @@ export enum VersionList {
     //% lspeed.min=-100 lspeed.max=100
     //% rspeed.min=-100 rspeed.max=100
     export function setWheels(lspeed: number = 50, rspeed: number = 50): void {
-        
-            TPBotV2.motorControl(lspeed, rspeed);
-        
-            TPBotV1.setWheels(lspeed, rspeed);
+        TPBotV1.setWheels(lspeed, rspeed);
+        TPBotV2.motorControl(lspeed, rspeed);
     }
     /**
     * Setting the direction and time of travel.
@@ -167,11 +165,10 @@ export enum VersionList {
     //% block="Go %direc at speed %speed\\% for %time seconds"
     //% speed.min=0 speed.max=100
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
-    export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
-        
-            TPBotV2.setTravelTime(direc, speed, time);
-        
-            TPBotV1.setTravelTime(direc, speed, time);
+    export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {  
+        TPBotV1.setTravelTime(direc, speed, time);
+        TPBotV2.setTravelTime(direc, speed, time);
+        basic.pause(time * 1000)
     }
     /**
     * Setting the direction and speed of travel.
@@ -184,9 +181,9 @@ export enum VersionList {
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelSpeed(direc: DriveDirection, speed: number): void {
         
-            TPBotV2.setTravelSpeed(direc, speed);
+        TPBotV1.setTravelSpeed(direc, speed)
+        TPBotV2.setTravelSpeed(direc, speed);
         
-            TPBotV1.setTravelSpeed(direc, speed)
     }
     /**
     * Stop the car. 
@@ -195,9 +192,9 @@ export enum VersionList {
     //% block="Stop the car immediately"
     export function stopCar(): void {
         
-            TPBotV2.stopCar();
+        TPBotV1.stopCar();
+        TPBotV2.stopCar();
         
-            TPBotV1.stopCar();
     }
     /**
      * track one side
@@ -209,9 +206,7 @@ export enum VersionList {
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     export function trackSide(side: LineSide, State: LineState): boolean {
-        
-            return TPBotV2.trackSide(side, State);
-        
+        return TPBotV2.trackSide(side, State);
             //return TPBotV1.trackSide(side, State);
     }
     /**
@@ -223,9 +218,7 @@ export enum VersionList {
     //% state.fieldEditor="gridpicker"
     //% state.fieldOptions.columns=1
     export function trackLine(state: TrackingState): boolean {
-        
-            return TPBotV2.trackLine(state);
-        
+        return TPBotV2.trackLine(state);
             //return TPBotV1.trackLine(state);
     }
     /**
@@ -236,10 +229,9 @@ export enum VersionList {
     //% side.fieldEditor="gridpicker" side.fieldOptions.columns=2
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
-        
-            TPBotV2.trackEvent(side, state, handler);
-        
-            TPBotV1.trackEvent(side, state, handler);
+        TPBotV1.trackEvent(side, state, handler);
+        TPBotV2.trackEvent(side, state, handler);
+        basic.pause(5);
     }
     /**
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
@@ -250,9 +242,7 @@ export enum VersionList {
     //% unit.fieldEditor="gridpicker"
     //% unit.fieldOptions.columns=2
     export function sonarReturn(unit: SonarUnit, maxCmDistance = 500): number {
-        
-            return TPBotV2.sonarReturn(unit, maxCmDistance);
-        
+        return TPBotV2.sonarReturn(unit, maxCmDistance);
             //return TPBotV1.sonarReturn(unit, maxCmDistance);
     }
     /**
@@ -265,9 +255,7 @@ export enum VersionList {
     //% dis.min=1 dis.max=400
     //% judge.fieldEditor="gridpicker" judge.fieldOptions.columns=2
     export function sonarJudge(judge: Sonarjudge, dis: number): boolean {
-        
-            return TPBotV2.sonarJudge(judge, dis);
-        
+        return TPBotV2.sonarJudge(judge, dis);
             //return TPBotV1.sonarJudge(judge, dis);
     }
     /**
@@ -277,10 +265,8 @@ export enum VersionList {
     //% weight=30
     //% color.shadow="colorNumberPicker"
     export function headlightColor(color: number) {
-        
-            TPBotV2.headlightColor(color);
-        
-            TPBotV1.headlightColor(color);
+        TPBotV1.headlightColor(color);
+        TPBotV2.headlightColor(color);
     }
 
     /**
@@ -296,10 +282,8 @@ export enum VersionList {
     //% g.min=0 g.max=255
     //% b.min=0 b.max=255
     export function headlightRGB(r: number, g: number, b: number): void {
-        
-            TPBotV2.headlightRGB(r, g, b);
-        
-            TPBotV1.headlightRGB(r, g, b);
+        TPBotV1.headlightRGB(r, g, b);
+        TPBotV2.headlightRGB(r, g, b);
     }
     /**
     * Turn off the eye mask lamp.
@@ -307,10 +291,8 @@ export enum VersionList {
     //% block="Turn off the headlights"
     //% weight=20
     export function headlightClose(): void {
-        
-            TPBotV2.headlightClose();
-        
-            TPBotV1.headlightClose();
+        TPBotV1.headlightClose();
+        TPBotV2.headlightClose();
     }
 
     /**
@@ -324,10 +306,8 @@ export enum VersionList {
     //% servo.fieldOptions.columns=1
     //% speed.min=-100 speed.max=100
     export function setServo360(servo: ServoList, speed: number = 100): void {
-        
-            TPBotV2.setServo360(servo + 1, speed);
-        
-            TPBotV1.setServo360(servo, speed);
+        TPBotV1.setServo360(servo, speed);
+        TPBotV2.setServo360(servo + 1, speed);
     }
 
     /**
@@ -341,10 +321,8 @@ export enum VersionList {
     //% servo.fieldEditor="gridpicker"
     //% servo.fieldOptions.columns=1
     export function setServo(servoType: ServoTypeList, servo: ServoList, angle: number = 0): void {
-        
-            TPBotV2.setServo(servoType, servo + 1, angle);
-        
-            TPBotV1.setServo(servoType, servo, angle);
+        TPBotV1.setServo(servoType, servo, angle);
+        TPBotV2.setServo(servoType, servo + 1, angle);
     }
 
     /***********************************************************************************************

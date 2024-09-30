@@ -255,22 +255,22 @@ namespace TPBotV2 {
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {
         if (direc == 0) {
             motorControl(speed, speed)
-            basic.pause(time * 1000)
+            ////basic.pause(time * 1000)
             stopCar()
         }
         if (direc == 1) {
             motorControl(-speed, -speed)
-            basic.pause(time * 1000)
+            ////basic.pause(time * 1000)
             stopCar()
         }
         if (direc == 2) {
             motorControl(-speed, speed)
-            basic.pause(time * 1000)
+            ////basic.pause(time * 1000)
             stopCar()
         }
         if (direc == 3) {
             motorControl(speed, -speed)
-            basic.pause(time * 1000)
+            ////basic.pause(time * 1000)
             stopCar()
         }
     }
@@ -361,7 +361,7 @@ namespace TPBotV2 {
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
         initEvents();
         control.onEvent(<number>side, <number>state, handler);
-        basic.pause(5);
+        ////basic.pause(5);
     }
     /**
     * Cars can extend the ultrasonic function to prevent collisions and other functions.
