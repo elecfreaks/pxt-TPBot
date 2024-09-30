@@ -167,6 +167,7 @@ export enum VersionList {
     //% direc.fieldEditor="gridpicker" direc.fieldOptions.columns=2
     export function setTravelTime(direc: DriveDirection, speed: number, time: number): void {  
         TPBotV1.setTravelTime(direc, speed, time);
+        basic.pause(100)
         TPBotV2.setTravelTime(direc, speed, time);
         basic.pause(time * 1000)
     }
@@ -230,6 +231,7 @@ export enum VersionList {
     //% state.fieldEditor="gridpicker" state.fieldOptions.columns=2
     export function trackEvent(side: MbPins, state: MbEvents, handler: Action) {
         TPBotV1.trackEvent(side, state, handler);
+        basic.pause(5);
         TPBotV2.trackEvent(side, state, handler);
         basic.pause(5);
     }
