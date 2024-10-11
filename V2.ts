@@ -488,10 +488,13 @@ namespace TPBotV2 {
         let max_time = input.runningTime() + delayTime;
         while (max_time >= input.runningTime()) {
             flag = readHardVersion();
-            if (flag == 1) break;
-            basic.pause(10);
+            if (flag == 1) {
+                basic.pause(700);
+                break;
+            };
+            basic.pause(1);
         }
-        basic.pause(700)
+        
     }
 
     /**
@@ -556,37 +559,37 @@ namespace TPBotV2 {
         let direction_flag = (direction == Direction.Forward ? 0 : 3);
         i2cCommandSend(0x41, [distance_h, distance_l, direction_flag]);
         //basic.pause(distance * 2 + 200) // 小车以500mm/s速度运行
-        pid_finish_delay(distance * 4 + 500);
+        pid_finish_delay(distance * 7.0 + 400);
     }
 
-    /**
-     * Select the wheel and set the Angle or number of turns you want to turn
-     * @Wheel Select wheel eg: Wheel.WheelLeft
-     * @angle set the angle or number of turns eg: 0
-     * @angleUnits set the angle unit eg: AngleUnit.angle
-     */
-    export function pidRunAngle(wheel: Wheel, angle: number, angleUnits: AngleUnits): void {
-        let l_angle_h = 0;
-        let l_angle_l = 0;
-        let r_angle_h = 0;
-        let r_angle_l = 0;
-        let direction = 0;
-        if (angleUnits == AngleUnits.Circle) angle *= 360;
-        if (angle < 0) direction = 3;
-        angle *= 2;
-        if (wheel == Wheel.WheelLeft || wheel == Wheel.WheelALL) {
-            l_angle_l = angle & 0xFF;
-            l_angle_h = angle >> 8;
-        }
-        if (wheel == Wheel.WheelRight || wheel == Wheel.WheelALL) {
-            r_angle_l = angle & 0xFF;
-            r_angle_h = angle >> 8;
-        }
+    // /**
+    //  * Select the wheel and set the Angle or number of turns you want to turn
+    //  * @Wheel Select wheel eg: Wheel.WheelLeft
+    //  * @angle set the angle or number of turns eg: 0
+    //  * @angleUnits set the angle unit eg: AngleUnit.angle
+    //  */
+    // export function pidRunAngle(wheel: Wheel, angle: number, angleUnits: AngleUnits): void {
+    //     let l_angle_h = 0;
+    //     let l_angle_l = 0;
+    //     let r_angle_h = 0;
+    //     let r_angle_l = 0;
+    //     let direction = 0;
+    //     if (angleUnits == AngleUnits.Circle) angle *= 360;
+    //     if (angle < 0) direction = 3;
+    //     angle *= 2;
+    //     if (wheel == Wheel.WheelLeft || wheel == Wheel.WheelALL) {
+    //         l_angle_l = angle & 0xFF;
+    //         l_angle_h = angle >> 8;
+    //     }
+    //     if (wheel == Wheel.WheelRight || wheel == Wheel.WheelALL) {
+    //         r_angle_l = angle & 0xFF;
+    //         r_angle_h = angle >> 8;
+    //     }
 
-        i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
-        // basic.pause(angle * 2 + 200)
-        pid_finish_delay(angle * 4 + 500);
-    }
+    //     i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
+    //     // basic.pause(angle * 2 + 200)
+    //     pid_finish_delay(angle * 4 + 500);
+    // }
 
     let blockLength: number = 0;
     let blockUnit: DistanceUnit = DistanceUnit.Cm;
@@ -613,9 +616,9 @@ namespace TPBotV2 {
     /**
      * set the trolley to rotate at a specific Angle
      * @TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
-     * @TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
+     * @angle set the angle unit eg: 0
      */
-    export function pidRunSteering(turn: TurnUnit, angle: TurnAngleUnit): void {
+    export function pidRunSteering(turn: TurnUnit, angle: number): void {
         let l_angle_h = 0;
         let l_angle_l = 0;
         let r_angle_h = 0;
@@ -644,8 +647,8 @@ namespace TPBotV2 {
             direction = 2;
         }
         i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
-        basic.pause(angle * 2 + 200)
-        pid_finish_delay(angle * 4 + 500);
+        // basic.pause(angle * 2 + 200)
+        pid_finish_delay(angle * 8 + 500);
     }
 
     let version = 0;

@@ -412,19 +412,6 @@ export enum VersionList {
     }
 
     /**
-     * Select the wheel and set the Angle or number of turns you want to turn
-     * @param Wheel Select wheel eg: Wheel.WheelLeft
-     * @param angle set the angle or number of turns eg: 0
-     * @param angleUnits set the angle unit eg: AngleUnit.angle
-     */
-    //% subcategory="PID"
-    //% weight=200
-    //% block="set %Wheel rotation %angle %AngleUnits"
-    export function pidRunAngle(wheel: Wheel, angle: number, angleUnits: AngleUnits): void {
-        TPBotV2.pidRunAngle(wheel, angle, angleUnits);
-    }
-
-    /**
     * set block length
     * @param length set the length of each block eg: 0
     * @param DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
@@ -450,12 +437,13 @@ export enum VersionList {
     /**
      * set the trolley to rotate at a specific Angle
      * @param TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
-     * @param TurnAngleUnit set the angle unit eg: TurnAngleUnit.T45
+     * @param angle set the angle unit eg: 180
      */
     //% subcategory="PID"
     //% weight=190
-    //% block="set car %TurnUnit for angle %TurnAngleUnit"
-    export function pidRunSteering(turn: TurnUnit, angle: TurnAngleUnit): void {
+    //% block="set car %TurnUnit for angle %angle"
+    //% angle.min=0 angle.max=360
+    export function pidRunSteering(turn: TurnUnit, angle: number): void {
         TPBotV2.pidRunSteering(turn, angle);
     }
 

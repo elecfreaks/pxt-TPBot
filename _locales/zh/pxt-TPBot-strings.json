@@ -61,7 +61,7 @@
   "TPBot.pidRunDistance|block": "向 %Direction 移动 %distance %DistanceUnit",
   "TPBot.pidRunAngle|block": "设置 %Wheel 转动 %angle %AngleUnits",
   "TPBot.readHardVersion|block": "初始化 %versions 为小车版本",
-  "TPBot.pidRunSteering|block": "设置小车 %TurnUnit %TurnAngleUnit",
+  "TPBot.pidRunSteering|block": "设置小车 %TurnUnit %angle",
   "TPBot.pidBlockSet|block": "设置方格边长为 %length %DistanceUnit",
   "TPBot.pidRunBlock|block": "设置小车向前行驶 %cnt 方格",
   "TPBot|block": "天蓬",
