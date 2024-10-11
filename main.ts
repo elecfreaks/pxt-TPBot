@@ -459,16 +459,7 @@ export enum VersionList {
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    /**
-     * Select the version to initialize.
-     */
-    //// weight=110
-    //// block="Select the %version to initialize" eg: VersionList.TPBot_Pro
-    export function readHardVersionn(versions:VersionList): void {
-        version = (versions==VersionList.TPBot?1:2);
-    }
-
     export function readHardVersion(): number {
-        return version;
+        return TPBotV2.readHardVersion();
     }
 }

@@ -538,13 +538,18 @@ namespace TPBotV2 {
      * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
      */
     export function pidRunDistance(direction: Direction, distance: number, unit: DistanceUnit): void {
-
+        let flag = 0;
         distance *= (unit == DistanceUnit.Cm ? 10 : 25.4)
         let distance_h = distance >> 8;
         let distance_l = distance & 0xFF;
         let direction_flag = (direction == Direction.Forward ? 0 : 3);
         i2cCommandSend(0x41, [distance_h, distance_l, direction_flag]);
-        basic.pause(distance * 2 + 200) // 小车以500mm/s速度运行
+        //basic.pause(distance * 2 + 200) // 小车以500mm/s速度运行
+        while (1) {
+            flag = readHardVersion();
+            if (flag == 1) break;
+        }
+        basic.pause(500)
     }
 
     /**
@@ -634,12 +639,10 @@ namespace TPBotV2 {
         basic.pause(angle * 2 + 200)
     }
 
-    let version = -1;
+    let version = 0;
     export function readHardVersion(): number {
-        if (version == -1) {
-            i2cCommandSend(0xA0, [0]);
-            version = pins.i2cReadNumber(tpbotAdd, NumberFormat.UInt8LE, false)
-        }
+        i2cCommandSend(0xA0, [0]);
+        version = pins.i2cReadNumber(tpbotAdd, NumberFormat.UInt8LE, false);
         return version;
     }
 }
