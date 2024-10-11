@@ -482,6 +482,18 @@ namespace TPBotV2 {
      * PID控制
      ***********************************************************************************************/
     //
+
+    function pid_finish_delay(delayTime:number):void{
+        let flag = 0;
+        let max_time = input.runningTime() + delayTime;
+        while (max_time >= input.runningTime()) {
+            flag = readHardVersion();
+            if (flag == 1) break;
+            basic.pause(10);
+        }
+        basic.pause(700)
+    }
+
     /**
      * control the car to travel at a specific speed (speed.min=20cm/s speed.max=50cm/s)
      * @lspeed set the lspeed
@@ -538,19 +550,13 @@ namespace TPBotV2 {
      * @DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
      */
     export function pidRunDistance(direction: Direction, distance: number, unit: DistanceUnit): void {
-        let flag = 0;
         distance *= (unit == DistanceUnit.Cm ? 10 : 25.4)
         let distance_h = distance >> 8;
         let distance_l = distance & 0xFF;
         let direction_flag = (direction == Direction.Forward ? 0 : 3);
         i2cCommandSend(0x41, [distance_h, distance_l, direction_flag]);
         //basic.pause(distance * 2 + 200) // 小车以500mm/s速度运行
-        while (1) {
-            flag = readHardVersion();
-            if (flag == 1) break;
-            basic.pause(10);
-        }
-        basic.pause(500)
+        pid_finish_delay(distance * 4 + 500);
     }
 
     /**
@@ -578,7 +584,8 @@ namespace TPBotV2 {
         }
 
         i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
-        basic.pause(angle * 2 + 200)
+        // basic.pause(angle * 2 + 200)
+        pid_finish_delay(angle * 4 + 500);
     }
 
     let blockLength: number = 0;
@@ -638,6 +645,7 @@ namespace TPBotV2 {
         }
         i2cCommandSend(0x42, [l_angle_h, l_angle_l, r_angle_h, r_angle_l, direction]);
         basic.pause(angle * 2 + 200)
+        pid_finish_delay(angle * 4 + 500);
     }
 
     let version = 0;
