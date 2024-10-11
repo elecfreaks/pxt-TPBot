@@ -548,6 +548,7 @@ namespace TPBotV2 {
         while (1) {
             flag = readHardVersion();
             if (flag == 1) break;
+            basic.pause(10);
         }
         basic.pause(500)
     }
