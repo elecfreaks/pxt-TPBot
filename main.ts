@@ -400,9 +400,9 @@ export enum VersionList {
 
     /**
      * set the car to travel a specific distance(distance.max=6000cm, distance.min=0cm)
-     * @param Direction set the direction eg: Direction.Forward
-     * @param distance set the distance eg: 0
-     * @param DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+     * @param Direction set the direction 
+     * @param distance set the distance 
+     * @param DistanceUnit set the DistanceUnit 
      */
     //% subcategory="PID"
     //% weight=200
@@ -413,8 +413,8 @@ export enum VersionList {
 
     /**
     * set block length
-    * @param length set the length of each block eg: 0
-    * @param DistanceUnit set the DistanceUnit eg: DistanceUnit.Cm
+    * @param length set the length of each block 
+    * @param DistanceUnit set the DistanceUnit
     */
     //% subcategory="PID"
     //% weight=180
@@ -425,7 +425,7 @@ export enum VersionList {
 
     /**
     * run a specific number of block
-    * @param cnt set the number of block eg: 0
+    * @param cnt set the number of block 
     */
     //% subcategory="PID"
     //% weight=170
@@ -436,8 +436,8 @@ export enum VersionList {
 
     /**
      * set the trolley to rotate at a specific Angle
-     * @param TurnUnit set the rotation mode eg: TurnUnit.Leftsteering
-     * @param angle set the angle unit eg: 180
+     * @param TurnUnit set the rotation mode 
+     * @param angle set the angle unit 
      */
     //% subcategory="PID"
     //% weight=190
