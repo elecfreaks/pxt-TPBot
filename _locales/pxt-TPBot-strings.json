@@ -28,6 +28,7 @@
   "TPBot.headlightRGB|block": "Set headlight color to R:%r G:%g B:%b",
   "TPBot.setServo180|block": "Set 180° servo %servo angle to %angle °",
   "TPBot.setServo360|block": "Set 360° servo %servo speed to %speed \\%",
+  "TPBot.setServo|block": "Set %servoType servo %servo to %angle",
   "TPBot.setTravelSpeed|block": "Go %direc at speed %speed\\%",
   "TPBot.setTravelTime|block": "Go %direc at speed %speed\\% for %time seconds",
   "TPBot.setWheels|block": "Set left wheel speed at %lspeed\\%| right wheel speed at %rspeed\\%",
@@ -38,5 +39,6 @@
   "TPBot.trackLine|block": "Line sensor state is %state",
   "TPBot.trackSide|block": "%side line sensor detected %state",
   "TPBot|block": "TPBot",
-  "{id:category}TPBot": "TPBot"
+  "{id:category}TPBot": "TPBot",
+  "{id:subcategory}PID": "PID"
 }

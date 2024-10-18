@@ -8,6 +8,8 @@
     "files": [
         "README.md",
         "main.ts",
+        "V1.ts",
+        "V2.ts",
         "_locales/zh/pxt-TPBot-strings.json",
         "_locales/de/pxt-TPBot-strings.json",
         "_locales/de/pxt-TPBot-jsdoc-strings.json",
