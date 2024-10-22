@@ -554,6 +554,7 @@ namespace TPBotV2 {
      */
     export function pidRunDistance(direction: Direction, distance: number, unit: DistanceUnit): void {
         distance *= (unit == DistanceUnit.Cm ? 10 : 25.4)
+        if (distance == 0) return;
         let distance_h = distance >> 8;
         let distance_l = distance & 0xFF;
         let direction_flag = (direction == Direction.Forward ? 0 : 3);
