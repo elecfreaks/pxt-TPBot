@@ -448,7 +448,7 @@ export enum VersionList {
     }
 
     /**
-     * set the speed of the pid control
+     * set the speed of the pid control （20~50 cm/s）
      * @param speed set the speed of the pid control eg:25
      * @param unit set the SpeedUnit
      */
