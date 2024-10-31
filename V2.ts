@@ -485,7 +485,7 @@ namespace TPBotV2 {
 
     function pid_finish_delay(delayTime:number):void{
         let flag = 0;
-        delayTime = (1/ (PID_SPEED / 250)) * delayTime;
+        delayTime = (1/ (PID_SPEED / 250) * 2) * delayTime;
         let max_time = input.runningTime() + delayTime;
         while (max_time >= input.runningTime()) {
             flag = readPidStopFlag();
