@@ -652,6 +652,25 @@ namespace TPBotV2 {
         pid_finish_delay(angle * 8 + 500);
     }
 
+    /**
+     * set the speed of the pid control
+     * @speed set the angle unit eg: 25
+     * @SpeedUnit set the SpeedUnit eg: SpeedUnit.Cm_s
+     */
+    export function pidSetSpeed(speed: number, unit: SpeedUnit): void {
+        switch (unit) {
+            case SpeedUnit.Cm_s:
+                speed *= 10;
+                break;
+            case SpeedUnit.Inch_s:
+                speed *= 25.4;
+                break;
+        }
+        let speed_h = speed >> 8;
+        let speed_l = speed & 0xFF;
+        i2cCommandSend(0x4F, [speed_h, speed_l]);
+    }
+
     let version = 0;
     export function readHardVersion(): number {
         i2cCommandSend(0xA0, [0]);
