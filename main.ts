@@ -449,7 +449,7 @@ export enum VersionList {
 
     /**
      * set the speed of the pid control
-     * @param speed set the speed of the pid control
+     * @param speed set the speed of the pid control eg:25
      * @param unit set the SpeedUnit
      */
     //% subcategory="PID"
