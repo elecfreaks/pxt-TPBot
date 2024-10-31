@@ -460,7 +460,7 @@ export enum VersionList {
         TPBotV2.pidSetSpeed(speed,unit);
     }
 
-    export function readHardVersion(): number {
-        return TPBotV2.readHardVersion();
+    export function readPidStopFlag(): number {
+        return TPBotV2.readPidStopFlag();
     }
 }
