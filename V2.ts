@@ -476,7 +476,7 @@ namespace TPBotV2 {
         i2cCommandSend(0x20, [servo, angle]);
     }
 
-
+    let PID_SPEED = 250;
 
     /***********************************************************************************************
      * PID控制
@@ -485,11 +485,12 @@ namespace TPBotV2 {
 
     function pid_finish_delay(delayTime:number):void{
         let flag = 0;
+        delayTime = (1/ (PID_SPEED / 250) * 2) * delayTime;
         let max_time = input.runningTime() + delayTime;
         while (max_time >= input.runningTime()) {
-            flag = readHardVersion();
+            flag = readPidStopFlag();
             if (flag == 1) {
-                basic.pause(700);
+                basic.pause(400);
                 break;
             };
             basic.pause(1);
@@ -652,8 +653,30 @@ namespace TPBotV2 {
         pid_finish_delay(angle * 8 + 500);
     }
 
+    /**
+     * set the speed of the pid control
+     * @speed set the angle unit eg: 25
+     * @SpeedUnit set the SpeedUnit eg: SpeedUnit.Cm_s
+     */
+    export function pidSetSpeed(speed: number, unit: SpeedUnit): void {
+        switch (unit) {
+            case SpeedUnit.Cm_s:
+                speed *= 10;
+                break;
+            case SpeedUnit.Inch_s:
+                speed *= 25.4;
+                break;
+        }
+        PID_SPEED = speed;
+        if (PID_SPEED < 200) PID_SPEED = 200;
+        if (PID_SPEED > 500) PID_SPEED = 500;
+        let speed_h = speed >> 8;
+        let speed_l = speed & 0xFF;
+        i2cCommandSend(0x4F, [speed_h, speed_l]);
+    }
+
     let version = 0;
-    export function readHardVersion(): number {
+    export function readPidStopFlag(): number {
         i2cCommandSend(0xA0, [0]);
         version = pins.i2cReadNumber(tpbotAdd, NumberFormat.UInt8LE, false);
         return version;

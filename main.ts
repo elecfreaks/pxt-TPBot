@@ -447,7 +447,19 @@ export enum VersionList {
         TPBotV2.pidRunSteering(turn, angle);
     }
 
-    export function readHardVersion(): number {
-        return TPBotV2.readHardVersion();
+    /**
+     * set the speed of the pid control （20~50 cm/s）
+     * @param speed set the speed of the pid control eg:25
+     * @param unit set the SpeedUnit
+     */
+    //% subcategory="PID"
+    //% weight=215
+    //% block="set the %speed %unit of the pid control"
+    export function pidSetSpeed(speed: number , unit: SpeedUnit): void {
+        TPBotV2.pidSetSpeed(speed,unit);
+    }
+
+    export function readPidStopFlag(): number {
+        return TPBotV2.readPidStopFlag();
     }
 }
