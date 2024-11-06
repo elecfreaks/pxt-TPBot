@@ -455,7 +455,6 @@ export enum VersionList {
     //% subcategory="PID"
     //% weight=215
     //% block="set the %speed %unit of the pid control"
-    //% speed.min=20 speed.max=50
     export function pidSetSpeed(speed: number , unit: SpeedUnit): void {
         TPBotV2.pidSetSpeed(speed,unit);
     }

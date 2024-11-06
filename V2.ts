@@ -490,7 +490,7 @@ namespace TPBotV2 {
         while (max_time >= input.runningTime()) {
             flag = readPidStopFlag();
             if (flag == 1) {
-                basic.pause(700);
+                basic.pause(400);
                 break;
             };
             basic.pause(1);
@@ -669,6 +669,7 @@ namespace TPBotV2 {
         }
         PID_SPEED = speed;
         if (PID_SPEED < 200) PID_SPEED = 200;
+        if (PID_SPEED > 500) PID_SPEED = 500;
         let speed_h = speed >> 8;
         let speed_l = speed & 0xFF;
         i2cCommandSend(0x4F, [speed_h, speed_l]);
