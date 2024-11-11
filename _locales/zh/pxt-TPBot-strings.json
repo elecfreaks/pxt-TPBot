@@ -60,7 +60,6 @@
   "TPBot.pidSpeedControl|block": "设置左轮速度为 %lspeed, 右轮速度为 %rspeed %unit",
   "TPBot.pidRunDistance|block": "向 %Direction 移动 %distance %DistanceUnit",
   "TPBot.pidRunAngle|block": "设置 %Wheel 转动 %angle %AngleUnits",
-  "TPBot.readPidStopFlag|block": "初始化 %versions 为小车版本",
   "TPBot.pidRunSteering|block": "设置小车 %TurnUnit %angle 度",
   "TPBot.pidSetSpeed|block": "设置小车 PID 速度为 %speed %unit",
   "TPBot.pidBlockSet|block": "设置方格边长为 %length %DistanceUnit",
