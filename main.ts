@@ -462,4 +462,12 @@ export enum VersionList {
     export function readPidStopFlag(): number {
         return TPBotV2.readPidStopFlag();
     }
+
+
+    //% subcategory="PID"
+    //% weight=10
+    //% block="Adjust motor speed"
+    export function adjustMotorSpeed(): void {
+        TPBotV2.adjustMotorSpeed();
+    }
 }

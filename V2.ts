@@ -681,4 +681,8 @@ namespace TPBotV2 {
         version = pins.i2cReadNumber(tpbotAdd, NumberFormat.UInt8LE, false);
         return version;
     }
+
+    export function adjustMotorSpeed(): void {
+        i2cCommandSend(0xF0,[0]);
+    }
 }
