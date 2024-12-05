@@ -685,4 +685,8 @@ namespace TPBotV2 {
     export function adjustMotorSpeed(): void {
         i2cCommandSend(0xF0,[0]);
     }
+
+    export function resetMotorAdjust(): void {
+        i2cCommandSend(0xF1, [0]);
+    }
 }

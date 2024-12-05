@@ -470,4 +470,11 @@ export enum VersionList {
     export function adjustMotorSpeed(): void {
         TPBotV2.adjustMotorSpeed();
     }
+
+    //% subcategory="PID"
+    //% weight=9
+    //% block="Reset motor adjust"
+    export function resetMotorAdjust(): void {
+        TPBotV2.resetMotorAdjust();
+    }
 }
