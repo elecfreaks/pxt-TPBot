@@ -64,6 +64,8 @@
   "TPBot.pidSetSpeed|block": "设置小车 PID 速度为 %speed %unit",
   "TPBot.pidBlockSet|block": "设置方格边长为 %length %DistanceUnit",
   "TPBot.pidRunBlock|block": "设置小车向前行驶 %cnt 方格",
+  "TPBot.adjustMotorSpeed|block": "校准电机速度",
+  "TPBot.resetMotorAdjust|block": "复位电机校准参数",
   "TPBot|block": "天蓬",
   "{id:category}TPBot": "天蓬",
   "{id:subcategory}PID": "PID控制(教育版)"
